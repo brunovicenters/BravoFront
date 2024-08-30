@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BravoFront</string>
+    <string name="home">Tela Principal</string>
+    <string name="shop_cart">Carrinho</string>
+    <string name="search">Pesquisa</string>
+    <string name="category">Categoria</string>
+    <string name="profile">Perfil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
