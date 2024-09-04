@@ -5,11 +5,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.fragments.HomeFragment">
+        tools:context=".views.fragments.HomeFragment"
+        android:visibility="visible">
+
     <FrameLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:background="@drawable/gradient_bg">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_bg">
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -37,8 +39,38 @@
 
 
                 </androidx.viewpager2.widget.ViewPager2>
+
+                <TextView
+                        android:text="@string/promotion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtPromo"
+                        android:textSize="48sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="24dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/federant"
+                        android:layout_marginTop="40dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="450dp"
+                        tools:listitem="@layout/card_item"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible"
+                android:indeterminate="true"
+                android:visibility="visible"
+                android:indeterminateTint="@color/highlight"
+                android:progressTint="@color/highlight"/>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
