@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".views.fragments.HomeFragment"
-             android:background="@drawable/gradient_bg">
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.fragments.HomeFragment">
+    <FrameLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@drawable/gradient_bg">
 
-<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:context=".views.fragments.HomeFragment"-->
-<!--            android:id="@+id/swpRefresh">-->
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="SpeakableTextPresentCheck">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:src="@drawable/logo_min"
+                        android:layout_width="48dp"
+                        android:layout_height="56dp"
+                        android:id="@+id/imageView"
+                        android:layout_margin="16dp"
+                        android:contentDescription="@string/logo_desc"/>
+
+                <androidx.viewpager2.widget.ViewPager2
+                        android:layout_width="match_parent"
+                        android:layout_height="320dp"
+                        android:id="@+id/viewPager"
+                        android:layout_margin="4dp">
 
 
+                </androidx.viewpager2.widget.ViewPager2>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-</FrameLayout>
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

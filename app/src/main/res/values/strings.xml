@@ -7,4 +7,8 @@
     <string name="profile">Perfil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo_desc">Logo do Aplicativo Bravo</string>
+    <string name="img_up">Imagem de um Volgswagen Up!</string>
+    <string name="img_saveiro">Imagem de uma saveiro nova</string>
+    <string name="img_mobi">Imagem de um fiat Mobi</string>
 </resources>

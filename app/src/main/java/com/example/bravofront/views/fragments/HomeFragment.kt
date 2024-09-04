@@ -5,12 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.os.Handler
+import android.os.Looper
 import com.example.bravofront.R
+import com.example.bravofront.databinding.FragmentHomeBinding
+import com.example.bravofront.views.ImagePagerAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
 //private const val ARG_PARAM2 = "param2"
+
+private const val AUTO_SCROLL_DELAY = 2500L
 
 /**
  * A simple [Fragment] subclass.
@@ -18,25 +24,49 @@ import com.example.bravofront.R
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-//    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private val images = listOf(R.drawable.upfoto, R.drawable.fiatmobi, R.drawable.novasaveiro)
+    private val autoScrollHandler = Handler(Looper.getMainLooper())
+    private val autoScrollRunnable = object : Runnable {
+        override fun run() {
+            val currentItem = binding.viewPager.currentItem
+            val nextItem = (currentItem + 1) % images.size
+            binding.viewPager.setCurrentItem(nextItem, true)
+            autoScrollHandler.postDelayed(this, AUTO_SCROLL_DELAY)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        val adapter = ImagePagerAdapter(this, images)
+        binding.viewPager.adapter = adapter
+        startAutoScroll()
+
+        return view
     }
+
+    private fun startAutoScroll() {
+        autoScrollHandler.postDelayed(autoScrollRunnable, AUTO_SCROLL_DELAY)
+    }
+
+    private fun stopAutoScroll() {
+        autoScrollHandler.removeCallbacks(autoScrollRunnable)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopAutoScroll()
+        _binding = null
+    }
+
 
     companion object {
         /**
