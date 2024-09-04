@@ -7,15 +7,16 @@ import java.util.concurrent.TimeUnit
 
 object API {
 
-    private const val BASE_URL = "http://10.135.151.13:8000/api"
+    private const val BASE_URL = "http://10.135.151.13:8000/api/"
 
-    private const val TIMEOUT = 40L
+    private const val TIMEOUT = 30L
 
     private val retrofit: Retrofit
         get() {
             val okHttp = OkHttpClient.Builder()
                 .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
                 .build()
 
             return Retrofit

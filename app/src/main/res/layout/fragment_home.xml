@@ -6,12 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.fragments.HomeFragment"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:id="@+id/swpRefresh">
 
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_bg">
+            android:background="@drawable/gradient_bg"
+            android:id="@+id/containerHome">
 
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -55,7 +57,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="450dp"
-                        tools:listitem="@layout/card_item"/>
+                        tools:listitem="@layout/card_item"
+                        android:id="@+id/recyclePromo"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
