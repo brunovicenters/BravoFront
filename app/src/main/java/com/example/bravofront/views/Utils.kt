@@ -6,7 +6,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 fun turnOnLoading(swiper: SwipeRefreshLayout, progressBar: View, container: View) {
     swiper.isRefreshing = true
     progressBar.visibility = View.VISIBLE
-    container.visibility = View.VISIBLE
+    container.visibility = View.INVISIBLE
 }
 fun turnOffLoading(swiper: SwipeRefreshLayout, progressBar: View, container: View) {
     swiper.isRefreshing = false
