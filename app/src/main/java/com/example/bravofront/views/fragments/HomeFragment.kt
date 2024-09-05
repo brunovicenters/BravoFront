@@ -59,12 +59,11 @@ class HomeFragment : Fragment() {
         binding.viewPager.adapter = adapterImg
         startAutoScroll()
 
-        turnOnLoading(binding.swpRefresh, binding.progressBar, binding.containerHome)
+        turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
         adapterProductAdapter = ProdutoCardRecyclerViewAdapter(listPromo)
 
         binding.recyclePromo.layoutManager = GridLayoutManager(context, 2)
-
         binding.recyclePromo.adapter = adapterProductAdapter
 
         binding.swpRefresh.setOnRefreshListener {
@@ -91,7 +90,7 @@ class HomeFragment : Fragment() {
     fun updateProdutos() {
         val callback = object : Callback<ApiResponse<Home>> {
             override fun onResponse(call: Call<ApiResponse<Home>>, res: Response<ApiResponse<Home>>) {
-                turnOffLoading(binding.swpRefresh, binding.progressBar, binding.containerHome)
+                turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
                 if(res.isSuccessful) {
                    val apiResponse = res.body()
@@ -114,7 +113,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ApiResponse<Home>>, t: Throwable) {
-                turnOffLoading(binding.swpRefresh, binding.progressBar, binding.containerHome)
+                turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
                 Snackbar
                     .make(binding.containerHome,
@@ -128,7 +127,7 @@ class HomeFragment : Fragment() {
 
         API.home.index().enqueue(callback)
 
-        turnOnLoading(binding.swpRefresh, binding.progressBar, binding.containerHome)
+        turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
     }
 
     override fun onDestroyView() {
