@@ -18,7 +18,8 @@
         <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:ignore="SpeakableTextPresentCheck">
+                tools:ignore="SpeakableTextPresentCheck"
+                android:id="@+id/nstScrollHome">
 
             <LinearLayout
                     android:orientation="vertical"
@@ -56,9 +57,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="450dp"
+                        android:layout_height="1050dp"
                         tools:listitem="@layout/card_item"
+                        android:nestedScrollingEnabled="false"
                         android:id="@+id/recyclePromo"/>
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
