@@ -1,13 +1,7 @@
-package com.example.bravofront.views
+package com.example.bravofront.views.adapters
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.bravofront.R
 import com.example.bravofront.views.fragments.ImageFragment
 
 class ImagePagerAdapter(fragment: Fragment, private val images: List<Int>) : FragmentStateAdapter(fragment) {

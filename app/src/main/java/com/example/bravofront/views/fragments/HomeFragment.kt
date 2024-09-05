@@ -11,13 +11,12 @@ import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bravofront.R
 import com.example.bravofront.api.API
-import com.example.bravofront.api.HomeApi
 import com.example.bravofront.databinding.FragmentHomeBinding
 import com.example.bravofront.model.ApiResponse
 import com.example.bravofront.model.Home
 import com.example.bravofront.model.ProdutoIndex
-import com.example.bravofront.views.ImagePagerAdapter
-import com.example.bravofront.views.ProdutoCardRecyclerViewAdapter
+import com.example.bravofront.views.adapters.ImagePagerAdapter
+import com.example.bravofront.views.adapters.ProdutoCardRecyclerViewAdapter
 import com.example.bravofront.views.turnOffLoading
 import com.example.bravofront.views.turnOnLoading
 import com.google.android.material.snackbar.Snackbar
