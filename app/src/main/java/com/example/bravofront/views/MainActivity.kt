@@ -7,6 +7,7 @@ import com.example.bravofront.R
 import com.example.bravofront.databinding.ActivityMainBinding
 import com.example.bravofront.views.fragments.HomeFragment
 import com.example.bravofront.views.fragments.ProfileFragment
+import com.example.bravofront.views.fragments.SearchFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +28,13 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     frag = HomeFragment.newInstance("", "")
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(binding.fragContainer.id, frag)
+                        .commit()
+                }
+                R.id.search -> {
+                    frag = SearchFragment.newInstance("", "")
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.fragContainer.id, frag)
