@@ -7,7 +7,11 @@ import java.util.concurrent.TimeUnit
 
 object API {
 
-    private const val BASE_URL = "http://10.135.151.13:8000/api/"
+    // CIT: 10.135.151.13
+    // Sala PMD: 10.135.200.85
+    // Casa: 192.168.15.13
+
+    private const val BASE_URL = "http://192.168.15.13:8000/api/"
 
     private const val TIMEOUT = 30L
 
@@ -30,4 +34,6 @@ object API {
     val home: HomeApi
         get() = retrofit.create(HomeApi::class.java)
 
+    val search: SearchAPI
+        get() = retrofit.create(SearchAPI::class.java)
 }
