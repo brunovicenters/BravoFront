@@ -16,7 +16,7 @@ import com.example.bravofront.model.ApiResponse
 import com.example.bravofront.model.Home
 import com.example.bravofront.model.ProdutoIndex
 import com.example.bravofront.views.adapters.ImagePagerAdapter
-import com.example.bravofront.views.adapters.ProdutoCardRecyclerViewAdapter
+import com.example.bravofront.views.adapters.ProdutoSectionAdapter
 import com.example.bravofront.views.turnOffLoading
 import com.example.bravofront.views.turnOnLoading
 import com.google.android.material.snackbar.Snackbar
@@ -30,11 +30,11 @@ private const val AUTO_SCROLL_DELAY = 2500L
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding : FragmentHomeBinding
 
-    lateinit var adapterProductAdapter: ProdutoCardRecyclerViewAdapter
+    lateinit var adapterProductAdapter: ProdutoSectionAdapter
     val listPromo = arrayListOf<ProdutoIndex>()
+    var headerPromo = ProdutoIndex()
 
     private val images = listOf(R.drawable.upfoto, R.drawable.fiatmobi, R.drawable.novasaveiro)
     private val autoScrollHandler = Handler(Looper.getMainLooper())
@@ -51,7 +51,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        Log.d("HomeFragment", "Initializing fragment")
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
         val adapterImg = ImagePagerAdapter(this, images)
@@ -60,9 +62,17 @@ class HomeFragment : Fragment() {
 
         turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
-        adapterProductAdapter = ProdutoCardRecyclerViewAdapter(listPromo)
+        adapterProductAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
 
-        binding.recyclePromo.layoutManager = GridLayoutManager(context, 2)
+        val layoutManager = GridLayoutManager(context, 2)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+               return if (position == 0) 2 else 1
+            }
+        }
+
+        binding.recyclePromo.layoutManager =layoutManager
+
         binding.recyclePromo.adapter = adapterProductAdapter
 
         binding.swpRefresh.setOnRefreshListener {
@@ -96,6 +106,10 @@ class HomeFragment : Fragment() {
                     apiResponse?.let {
                         listPromo.clear()
                         listPromo.addAll(apiResponse.data.promocao)
+                        headerPromo = apiResponse.data.promocao[0]
+
+                        adapterProductAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
+                        binding.recyclePromo.adapter = adapterProductAdapter
                         adapterProductAdapter.notifyDataSetChanged()
                     }
                 } else {
@@ -132,14 +146,13 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         stopAutoScroll()
-        _binding = null
     }
 
 
     companion object {
         @JvmStatic
 
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             HomeFragment()
     }
 }
