@@ -57,10 +57,29 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="1040dp"
+                        android:layout_height="1000dp"
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/recyclePromo"/>
+
+                <TextView
+                        android:text="@string/most_selled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="48sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="24dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/federant"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/txtMostSelled"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="1000dp"
+                        tools:listitem="@layout/card_item"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/recycleMostSelled"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

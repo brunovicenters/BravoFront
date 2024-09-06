@@ -32,9 +32,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
 
-    lateinit var adapterProductAdapter: ProdutoSectionAdapter
+    lateinit var adapterPromoAdapter: ProdutoSectionAdapter
     val listPromo = arrayListOf<ProdutoIndex>()
     var headerPromo = ProdutoIndex()
+
+    lateinit var adapterMostSelledAdapter : ProdutoSectionAdapter
+    val listMostSelled = arrayListOf<ProdutoIndex>()
+    var headerMostSelled = ProdutoIndex()
 
     private val images = listOf(R.drawable.upfoto, R.drawable.fiatmobi, R.drawable.novasaveiro)
     private val autoScrollHandler = Handler(Looper.getMainLooper())
@@ -62,18 +66,28 @@ class HomeFragment : Fragment() {
 
         turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
-        adapterProductAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
-
-        val layoutManager = GridLayoutManager(context, 2)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        val layoutManagerPromo = GridLayoutManager(context, 2)
+        layoutManagerPromo.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                return if (position == 0) 2 else 1
             }
         }
 
-        binding.recyclePromo.layoutManager =layoutManager
+        val layoutManagerMostSelled = GridLayoutManager(context, 2)
+        layoutManagerMostSelled.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0) 2 else 1
+            }
+        }
 
-        binding.recyclePromo.adapter = adapterProductAdapter
+        adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
+        adapterMostSelledAdapter = ProdutoSectionAdapter(listMostSelled, headerMostSelled)
+
+        binding.recyclePromo.layoutManager = layoutManagerPromo
+        binding.recycleMostSelled.layoutManager = layoutManagerMostSelled
+
+        binding.recyclePromo.adapter = adapterPromoAdapter
+        binding.recycleMostSelled.adapter = adapterMostSelledAdapter
 
         binding.swpRefresh.setOnRefreshListener {
             updateProdutos()
@@ -104,13 +118,34 @@ class HomeFragment : Fragment() {
                 if(res.isSuccessful) {
                    val apiResponse = res.body()
                     apiResponse?.let {
-                        listPromo.clear()
-                        listPromo.addAll(apiResponse.data.promocao)
-                        headerPromo = apiResponse.data.promocao[0]
 
-                        adapterProductAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
-                        binding.recyclePromo.adapter = adapterProductAdapter
-                        adapterProductAdapter.notifyDataSetChanged()
+                        val data = apiResponse.data
+
+                        if (data.promocao.isNotEmpty()) {
+                            listPromo.clear()
+                            listPromo.addAll(data.promocao)
+                            headerPromo = data.promocao[0]
+
+                            adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
+                            binding.recyclePromo.adapter = adapterPromoAdapter
+                            adapterPromoAdapter.notifyDataSetChanged()
+                        } else {
+                            binding.txtPromo.visibility = View.GONE
+                            binding.recyclePromo.visibility = View.GONE
+                        }
+
+                        if (data.produtosMaisVendidos.isNotEmpty()) {
+                            listMostSelled.clear()
+                            listMostSelled.addAll(data.produtosMaisVendidos)
+                            headerMostSelled = data.produtosMaisVendidos[0]
+
+                            adapterMostSelledAdapter = ProdutoSectionAdapter(listMostSelled, headerMostSelled)
+                            binding.recycleMostSelled.adapter = adapterMostSelledAdapter
+                            adapterMostSelledAdapter.notifyDataSetChanged()
+                        } else {
+                            binding.txtMostSelled.visibility = View.GONE
+                            binding.recycleMostSelled.visibility = View.GONE
+                        }
                     }
                 } else {
                     if (res.code() == 404 || res.code() == 401) {
