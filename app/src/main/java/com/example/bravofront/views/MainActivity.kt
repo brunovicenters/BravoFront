@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var frag : Fragment = HomeFragment.newInstance("","");
+        var frag : Fragment = HomeFragment.newInstance();
         supportFragmentManager
             .beginTransaction()
             .replace(binding.fragContainer.id, frag)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    frag = HomeFragment.newInstance("", "")
+                    frag = HomeFragment.newInstance()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.fragContainer.id, frag)
