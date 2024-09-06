@@ -71,14 +71,14 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
             }
 
             Picasso.get()
-                .load(produto.imagem)
+                .load(produto.imagem?.trim())
                 .error(R.drawable.no_car_img)
                 .into(binding.cardImg)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
+        return if (produtos.size % 2 != 0 && position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

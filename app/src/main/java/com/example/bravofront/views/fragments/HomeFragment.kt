@@ -36,9 +36,22 @@ class HomeFragment : Fragment() {
     val listPromo = arrayListOf<ProdutoIndex>()
     var headerPromo = ProdutoIndex()
 
-    lateinit var adapterMostSelledAdapter : ProdutoSectionAdapter
-    val listMostSelled = arrayListOf<ProdutoIndex>()
-    var headerMostSelled = ProdutoIndex()
+    lateinit var adapterMostSoldAdapter : ProdutoSectionAdapter
+    val listMostSold = arrayListOf<ProdutoIndex>()
+    var headerMostSold = ProdutoIndex()
+
+    lateinit var adapterFirstCategoryAdapter : ProdutoSectionAdapter
+    val listFirstCategory = arrayListOf<ProdutoIndex>()
+    var headerFirstCategory = ProdutoIndex()
+
+    lateinit var adapterSecondCategoryAdapter : ProdutoSectionAdapter
+    val listSecondCategory = arrayListOf<ProdutoIndex>()
+    var headerSecondCategory = ProdutoIndex()
+
+    lateinit var adapterThirdCategoryAdapter : ProdutoSectionAdapter
+    val listThirdCategory = arrayListOf<ProdutoIndex>()
+    var headerThirdCategory = ProdutoIndex()
+
 
     private val images = listOf(R.drawable.upfoto, R.drawable.fiatmobi, R.drawable.novasaveiro)
     private val autoScrollHandler = Handler(Looper.getMainLooper())
@@ -56,7 +69,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        Log.d("HomeFragment", "Initializing fragment")
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -69,25 +81,55 @@ class HomeFragment : Fragment() {
         val layoutManagerPromo = GridLayoutManager(context, 2)
         layoutManagerPromo.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-               return if (position == 0) 2 else 1
+               return if (position == 0 && listPromo.size % 2 != 0) 2 else 1
             }
         }
 
-        val layoutManagerMostSelled = GridLayoutManager(context, 2)
-        layoutManagerMostSelled.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        val layoutManagerMostSold = GridLayoutManager(context, 2)
+        layoutManagerMostSold.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (position == 0) 2 else 1
+                return if (position == 0 && listMostSold.size % 2 != 0) 2 else 1
+            }
+        }
+
+        val layoutManagerFirstCategory = GridLayoutManager(context, 2)
+        layoutManagerFirstCategory.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0 && listFirstCategory.size % 2 != 0) 2 else 1
+            }
+        }
+
+        val layoutManagerSecondCategory = GridLayoutManager(context, 2)
+        layoutManagerSecondCategory.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0 && listSecondCategory.size % 2 != 0) 2 else 1
+            }
+        }
+
+        val layoutManagerThirdCategory = GridLayoutManager(context, 2)
+        layoutManagerThirdCategory.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0 && listThirdCategory.size % 2 != 0) 2 else 1
             }
         }
 
         adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
-        adapterMostSelledAdapter = ProdutoSectionAdapter(listMostSelled, headerMostSelled)
+        adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold)
+        adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory)
+        adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory)
+        adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory)
 
         binding.recyclePromo.layoutManager = layoutManagerPromo
-        binding.recycleMostSelled.layoutManager = layoutManagerMostSelled
+        binding.recycleMostSold.layoutManager = layoutManagerMostSold
+        binding.recycleFirstCategory.layoutManager = layoutManagerFirstCategory
+        binding.recycleSecondCategory.layoutManager = layoutManagerSecondCategory
+        binding.recycleThirdCategory.layoutManager = layoutManagerThirdCategory
 
         binding.recyclePromo.adapter = adapterPromoAdapter
-        binding.recycleMostSelled.adapter = adapterMostSelledAdapter
+        binding.recycleMostSold.adapter = adapterMostSoldAdapter
+        binding.recycleFirstCategory.adapter = adapterFirstCategoryAdapter
+        binding.recycleSecondCategory.adapter = adapterSecondCategoryAdapter
+        binding.recycleThirdCategory.adapter = adapterThirdCategoryAdapter
 
         binding.swpRefresh.setOnRefreshListener {
             updateProdutos()
@@ -135,16 +177,75 @@ class HomeFragment : Fragment() {
                         }
 
                         if (data.produtosMaisVendidos.isNotEmpty()) {
-                            listMostSelled.clear()
-                            listMostSelled.addAll(data.produtosMaisVendidos)
-                            headerMostSelled = data.produtosMaisVendidos[0]
+                            listMostSold.clear()
+                            listMostSold.addAll(data.produtosMaisVendidos)
+                            headerMostSold = data.produtosMaisVendidos[0]
 
                             binding.txtMostSelled.visibility = View.VISIBLE
-                            binding.recycleMostSelled.visibility = View.VISIBLE
+                            binding.recycleMostSold.visibility = View.VISIBLE
 
-                            adapterMostSelledAdapter = ProdutoSectionAdapter(listMostSelled, headerMostSelled)
-                            binding.recycleMostSelled.adapter = adapterMostSelledAdapter
-                            adapterMostSelledAdapter.notifyDataSetChanged()
+                            adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold)
+                            binding.recycleMostSold.adapter = adapterMostSoldAdapter
+                            adapterMostSoldAdapter.notifyDataSetChanged()
+                        }
+
+                        if (data.categoriasMaisVendidas.isNotEmpty()) {
+
+                            val cMV = data.categoriasMaisVendidas
+
+                            if (cMV[0].produtos.isNotEmpty()) {
+
+                                val fc = cMV[0]
+
+                                listFirstCategory.clear()
+                                listFirstCategory.addAll(fc.produtos)
+                                headerFirstCategory = fc.produtos[0]
+
+                                binding.txtFirstCategory.text = fc.categoria.nome
+                                binding.txtFirstCategory.visibility = View.VISIBLE
+                                binding.recycleFirstCategory.visibility = View.VISIBLE
+
+                                adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory)
+                                binding.recycleFirstCategory.adapter = adapterFirstCategoryAdapter
+                                adapterFirstCategoryAdapter.notifyDataSetChanged()
+                            }
+
+                            if (cMV[1].produtos.isNotEmpty()) {
+                                val sc = cMV[1]
+
+                                listSecondCategory.clear()
+                                listSecondCategory.addAll(sc.produtos)
+                                headerSecondCategory = sc.produtos[0]
+
+                                binding.txtSecondCategory.text = sc.categoria.nome
+                                binding.txtSecondCategory.visibility = View.VISIBLE
+                                binding.recycleSecondCategory.visibility = View.VISIBLE
+
+                                adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory)
+                                binding.recycleSecondCategory.adapter = adapterSecondCategoryAdapter
+                                adapterSecondCategoryAdapter.notifyDataSetChanged()
+                            }
+
+                            if (cMV[2].produtos.isNotEmpty()) {
+                                val tc = cMV[2]
+
+                                listThirdCategory.clear()
+                                listThirdCategory.addAll(tc.produtos)
+                                headerThirdCategory = tc.produtos[0]
+
+                                Log.d("HEADER", headerThirdCategory.toString())
+                                Log.d("LIST", tc.produtos.size.toString())
+
+                                binding.txtThirdCategory.text = tc.categoria.nome
+                                binding.txtThirdCategory.visibility = View.VISIBLE
+                                binding.recycleThirdCategory.visibility = View.VISIBLE
+
+                                adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory)
+                                binding.recycleThirdCategory.adapter = adapterThirdCategoryAdapter
+                                adapterThirdCategoryAdapter.notifyDataSetChanged()
+                            }
+
+
                         }
                     }
                 } else {
