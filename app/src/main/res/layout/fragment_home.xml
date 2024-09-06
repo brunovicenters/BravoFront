@@ -58,7 +58,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="1000dp"
+                        android:layout_height="wrap_content"
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/recyclePromo"
@@ -79,10 +79,105 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="1000dp"
+                        android:layout_height="wrap_content"
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
-                        android:id="@+id/recycleMostSelled"
+                        android:id="@+id/recycle_most_sold"
+                        android:visibility="gone"/>
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/fourthary"
+                        android:paddingTop="24dp"
+                        android:paddingBottom="24dp"
+                        android:gravity="center"
+                        android:layout_marginTop="16dp">
+
+                    <TextView
+                            android:text="@string/find_you_dream_car"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txtFindYourCar"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/federant"
+                            android:textSize="24sp"
+                            android:layout_marginBottom="8dp"/>
+
+                    <Button
+                            android:text="@string/find_now"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btnFind"
+                            android:textColor="@color/white"
+                            app:cornerRadius="8dp"
+                            android:fontFamily="@font/fugaz_one"
+                            android:textSize="16sp"/>
+                </LinearLayout>
+
+                <TextView
+                        android:text="@string/category_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="48sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="24dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/federant"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/txtFirstCategory"
+                        android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/card_item"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/recycleFirstCategory"
+                        android:visibility="gone"/>
+
+                <TextView
+                        android:text="@string/category_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="48sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="24dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/federant"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/txtSecondCategory"
+                        android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/card_item"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/recycleSecondCategory"
+                        android:visibility="gone"/>
+
+                <TextView
+                        android:text="@string/category_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="48sp"
+                        android:textAlignment="viewStart"
+                        android:layout_marginStart="24dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/federant"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/txtThirdCategory"
+                        android:visibility="gone"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/card_item"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/recycleThirdCategory"
                         android:visibility="gone"/>
 
             </LinearLayout>
