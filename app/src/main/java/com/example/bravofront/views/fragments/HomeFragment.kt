@@ -126,12 +126,12 @@ class HomeFragment : Fragment() {
                             listPromo.addAll(data.promocao)
                             headerPromo = data.promocao[0]
 
+                            binding.txtPromo.visibility = View.VISIBLE
+                            binding.recyclePromo.visibility = View.VISIBLE
+
                             adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
                             binding.recyclePromo.adapter = adapterPromoAdapter
                             adapterPromoAdapter.notifyDataSetChanged()
-                        } else {
-                            binding.txtPromo.visibility = View.GONE
-                            binding.recyclePromo.visibility = View.GONE
                         }
 
                         if (data.produtosMaisVendidos.isNotEmpty()) {
@@ -139,12 +139,12 @@ class HomeFragment : Fragment() {
                             listMostSelled.addAll(data.produtosMaisVendidos)
                             headerMostSelled = data.produtosMaisVendidos[0]
 
+                            binding.txtMostSelled.visibility = View.VISIBLE
+                            binding.recycleMostSelled.visibility = View.VISIBLE
+
                             adapterMostSelledAdapter = ProdutoSectionAdapter(listMostSelled, headerMostSelled)
                             binding.recycleMostSelled.adapter = adapterMostSelledAdapter
                             adapterMostSelledAdapter.notifyDataSetChanged()
-                        } else {
-                            binding.txtMostSelled.visibility = View.GONE
-                            binding.recycleMostSelled.visibility = View.GONE
                         }
                     }
                 } else {
