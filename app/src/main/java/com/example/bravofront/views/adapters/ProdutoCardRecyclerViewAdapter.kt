@@ -18,7 +18,7 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
 
     class ViewHolder (private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
-            if (produto.nome?.length!! > 10) {
+            if (produto.nome.length!! > 10) {
                 val newText = produto.nome.take(10) + "..."
                 binding.cardTitle.text = newText
             } else {
