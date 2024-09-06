@@ -57,7 +57,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="1050dp"
+                        android:layout_height="1040dp"
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/recyclePromo"/>
