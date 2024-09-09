@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.example.bravofront.R
 import com.example.bravofront.databinding.ActivityMainBinding
 import com.example.bravofront.views.fragments.HomeFragment
-import com.example.bravofront.views.fragments.LoggedProfileFragment
 import com.example.bravofront.views.fragments.SearchFragment
 import com.example.bravofront.views.fragments.UnLoggedProfileFragment
 

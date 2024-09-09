@@ -50,7 +50,7 @@
                     android:fontFamily="@font/fugaz_one"/>
 
             <Button
-                    android:text="@string/register"
+                    android:text="@string/Register"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:id="@+id/btnRegister"
@@ -100,7 +100,7 @@
                     android:layout_marginTop="4dp"/>
 
             <Button
-                    android:text="@string/terms_and_conditions"
+                    android:text="@string/term_and_conditions"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/btnTermAndCond"

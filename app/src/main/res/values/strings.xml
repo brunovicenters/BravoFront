@@ -17,4 +17,8 @@
     <string name="find_you_dream_car">Encontre seu carro dos sonhos</string>
     <string name="find_now">Encontre já</string>
     <string name="category_name">Nome Categoria</string>
+    <string name="term_and_conditions">Termos e Condições</string>
+    <string name="customer_service">SAC</string>
+    <string name="Register">Cadastrar</string>
+    <string name="login">Entrar</string>
 </resources>
