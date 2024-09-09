@@ -12,7 +12,7 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_bg"
+            android:background="@color/white_100"
             android:id="@+id/containerHome">
 
         <androidx.core.widget.NestedScrollView
@@ -28,11 +28,12 @@
 
                 <ImageView
                         android:src="@drawable/logo_min"
-                        android:layout_width="48dp"
-                        android:layout_height="56dp"
+                        android:layout_width="64dp"
+                        android:layout_height="72dp"
                         android:id="@+id/imageView"
                         android:layout_margin="16dp"
-                        android:contentDescription="@string/logo_desc"/>
+                        android:contentDescription="@string/logo_desc"
+                        android:layout_gravity="center"/>
 
                 <androidx.viewpager2.widget.ViewPager2
                         android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                         android:textSize="48sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="24dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="40dp"
                         android:visibility="gone"/>
@@ -71,7 +72,7 @@
                         android:textSize="48sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="24dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:id="@+id/txtMostSelled"
@@ -101,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/txtFindYourCar"
                             android:textAlignment="center"
-                            android:textColor="@color/white"
+                            android:textColor="@color/white_100"
                             android:fontFamily="@font/federant"
                             android:textSize="24sp"
                             android:layout_marginBottom="8dp"/>
@@ -111,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/btnFind"
-                            android:textColor="@color/white"
+                            android:textColor="@color/white_100"
                             app:cornerRadius="8dp"
                             android:fontFamily="@font/fugaz_one"
                             android:textSize="16sp"/>
@@ -124,7 +125,7 @@
                         android:textSize="48sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="24dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:id="@+id/txtFirstCategory"
@@ -145,7 +146,7 @@
                         android:textSize="48sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="24dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:id="@+id/txtSecondCategory"
@@ -166,7 +167,7 @@
                         android:textSize="48sp"
                         android:textAlignment="viewStart"
                         android:layout_marginStart="24dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:id="@+id/txtThirdCategory"
@@ -194,7 +195,7 @@
                 tools:visibility="visible"
                 android:indeterminate="true"
                 android:visibility="visible"
-                android:indeterminateTint="@color/highlight"
+                android:indeterminateTint="@color/main"
                 android:progressTint="@color/highlight"/>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

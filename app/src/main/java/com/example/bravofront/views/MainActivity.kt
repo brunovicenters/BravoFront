@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import com.example.bravofront.R
 import com.example.bravofront.databinding.ActivityMainBinding
 import com.example.bravofront.views.fragments.HomeFragment
-import com.example.bravofront.views.fragments.ProfileFragment
+import com.example.bravofront.views.fragments.LoggedProfileFragment
 import com.example.bravofront.views.fragments.SearchFragment
+import com.example.bravofront.views.fragments.UnLoggedProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.profile -> {
-                    frag = ProfileFragment.newInstance("", "")
+                    frag = UnLoggedProfileFragment.newInstance("", "")
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.fragContainer.id, frag)

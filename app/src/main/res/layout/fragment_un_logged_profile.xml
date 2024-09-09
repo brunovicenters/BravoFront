@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".views.fragments.UnLoggedProfileFragment"
+             android:background="@color/white_100">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="vertical"
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:id="@+id/constraintLayout"
+                android:padding="8dp">
+
+            <View
+                    android:id="@+id/dvdVert1"
+                    android:layout_width="1dp"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            <Button
+                    android:text="@string/login"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/btnLogin"
+                    android:textColor="@color/btn_text_color_normal"
+                    android:backgroundTint="@color/btn_bg_color_normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dvdVert1"
+                    android:layout_marginEnd="8dp"
+                    app:strokeColor="@color/negative"
+                    app:strokeWidth="1dp"
+                    android:fontFamily="@font/fugaz_one"/>
+
+            <Button
+                    android:text="@string/register"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/btnRegister"
+                    android:textColor="@color/btn_text_color_normal"
+                    android:backgroundTint="@color/btn_bg_color_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/dvdVert1"
+                    app:strokeColor="@color/negative"
+                    app:strokeWidth="1dp"
+                    android:fontFamily="@font/fugaz_one"/>
+
+            <View
+                    android:id="@+id/dvdHor1"
+                    android:layout_width="345dp"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="52dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                    android:text="@string/customer_service"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnSAC"
+                    android:textColor="@color/btn_text_color_normal"
+                    android:backgroundTint="@color/btn_bg_color_normal"
+                    app:layout_constraintTop_toBottomOf="@+id/dvdHor1"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:strokeColor="@color/negative"
+                    app:strokeWidth="1dp"
+                    android:fontFamily="@font/fugaz_one"/>
+
+            <View
+                    android:id="@+id/dvdHor2"
+                    android:layout_width="345dp"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintTop_toBottomOf="@+id/btnSAC"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="4dp"/>
+
+            <Button
+                    android:text="@string/terms_and_conditions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnTermAndCond"
+                    android:textColor="@color/btn_text_color_normal"
+                    android:backgroundTint="@color/btn_bg_color_normal"
+                    app:layout_constraintTop_toBottomOf="@id/dvdHor2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:strokeColor="@color/negative"
+                    app:strokeWidth="1dp"
+                    android:fontFamily="@font/fugaz_one"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

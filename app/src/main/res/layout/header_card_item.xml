@@ -13,7 +13,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/terciary"
+            android:background="@color/main"
             android:id="@+id/containerCardHeader">
 
         <androidx.cardview.widget.CardView
@@ -23,14 +23,16 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                android:id="@+id/cardImgContainer">
+                android:id="@+id/cardImgContainer"
+                android:background="@color/white">
 
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/no_car_img"
                     android:id="@+id/cardImg"
-                    android:contentDescription="@string/no_image_found"/>
+                    android:contentDescription="@string/no_image_found"
+                    android:background="@color/white"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -43,7 +45,7 @@
                 android:textSize="24sp"
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/white"
+                android:textColor="@color/white_100"
                 android:textAlignment="center"/>
 
         <TextView
@@ -55,7 +57,7 @@
                 android:textSize="34sp"
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white_100"/>
 
         <TextView
                 android:text="Desconto"
@@ -66,7 +68,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/main"/>
+                android:textColor="@color/highlight"/>
 
     </LinearLayout>
 

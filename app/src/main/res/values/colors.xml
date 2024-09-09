@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="main">#C32727</color>
-    <color name="primary_auxiliary">#6F2323</color>
+    <color name="primary_auxiliary">#581212</color>
     <color name="secondary">#161515</color>
-    <color name="white">#F2F2F2</color>
-    <color name="negative">#676767</color>
+    <color name="white_100">#F8F9FC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="negative">#303030</color>
     <color name="affirmative">#175B0A</color>
     <color name="black">#000000</color>
     <color name="fourthary">#1D1D1D</color>
     <color name="terciary">#431A1A</color>
-    <color name="highlight">#E5732C</color>
-    <color name="card_bg">#C32727</color>
+    <color name="highlight">#FFA245</color>
+    <color name="disabled">#C2C2C4</color>
 </resources>
