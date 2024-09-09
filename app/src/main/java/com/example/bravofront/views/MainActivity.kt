@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.profile -> {
-                    frag = UnLoggedProfileFragment.newInstance("", "")
+                    frag = UnLoggedProfileFragment.newInstance(this)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.fragContainer.id, frag)
