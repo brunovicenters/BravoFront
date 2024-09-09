@@ -21,4 +21,5 @@
     <string name="customer_service">SAC</string>
     <string name="Register">Cadastrar</string>
     <string name="login">Entrar</string>
+    <string name="e_mail">E-mail</string>
 </resources>

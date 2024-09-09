@@ -6,16 +6,52 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.LoginActivity">
+        tools:context=".views.LoginActivity"
+        android:background="@color/white_100">
+
+    <ImageView
+            android:src="@drawable/logo_min"
+            android:layout_width="64dp"
+            android:layout_height="72dp"
+            android:id="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"/>
 
     <TextView
-            android:text="LOGIN!"
-            android:layout_width="wrap_content"
+            android:text="E-mail:*"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/affirmative"/>
+            android:textColor="@color/negative"
+            android:fontFamily="@font/federant"
+            android:textSize="24sp"
+            app:layout_constraintHorizontal_bias="0.223"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            app:boxBackgroundColor="@color/disabled">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-mail"
+                android:fontFamily="@font/fugaz_one"
+                android:textColor="@color/main"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
