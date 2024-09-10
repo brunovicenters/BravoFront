@@ -1,5 +1,6 @@
 package com.example.bravofront.views
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bravofront.databinding.ActivityLoginBinding
@@ -14,5 +15,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        binding.btnEntrar.setOnClickListener {
+            finish()
+        }
     }
 }

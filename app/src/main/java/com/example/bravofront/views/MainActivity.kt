@@ -13,16 +13,36 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding;
 
+    lateinit var frag : Fragment;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var frag : Fragment = HomeFragment.newInstance();
-        supportFragmentManager
-            .beginTransaction()
-            .replace(binding.fragContainer.id, frag)
-            .commit()
+//        when (intent.getIntExtra("screen", 0)) {
+//            R.id.search -> {
+//                frag = SearchFragment.newInstance("", "")
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(binding.fragContainer.id, frag)
+//                    .commit()
+//            }
+//            R.id.profile -> {
+//                frag = UnLoggedProfileFragment.newInstance(this)
+//                supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(binding.fragContainer.id, frag)
+//                    .commit()
+//            }
+//            else -> {
+                frag = HomeFragment.newInstance()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(binding.fragContainer.id, frag)
+                    .commit()
+//            }
+//        }
 
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
