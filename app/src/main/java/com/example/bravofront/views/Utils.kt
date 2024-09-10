@@ -1,6 +1,8 @@
 package com.example.bravofront.views
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import java.text.NumberFormat
 import java.util.*
@@ -24,4 +26,8 @@ fun formatPrice(price: Double) : String {
     format.currency = Currency.getInstance("BRL")
 
     return format.format(price)
+}
+
+fun makeToast(message: String, ctx: Context) {
+    Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show()
 }
