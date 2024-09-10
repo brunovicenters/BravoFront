@@ -5,7 +5,7 @@ import com.example.bravofront.model.Home
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface HomeApi {
+interface HomeAPI {
     @GET("/api")
     fun index(): Call<ApiResponse<Home>>
 }
