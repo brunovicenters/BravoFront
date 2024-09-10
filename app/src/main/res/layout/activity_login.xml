@@ -17,10 +17,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/logo_desc"/>
 
     <TextView
-            android:text="E-mail:*"
+            android:text="@string/email_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
@@ -57,7 +58,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-            android:text="Senha:*"
+            android:text="@string/password_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
@@ -87,14 +88,15 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/e_mail"
+                android:hint="@string/password"
                 android:fontFamily="@font/fugaz_one"
                 android:textColor="@color/main"
-                android:id="@+id/inputPassword"/>
+                android:id="@+id/inputPassword"
+                android:inputType="text|textPassword|textNoSuggestions"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-            android:text="Não possui uma conta ainda?"
+            android:text="@string/dont_have_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView5"
@@ -107,7 +109,7 @@
             android:textSize="12sp"/>
 
     <TextView
-            android:text="Crie sua conta"
+            android:text="@string/create_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtCreateAccount"
@@ -120,7 +122,7 @@
             android:textSize="16sp"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-            android:text="Manter Logado"
+            android:text="@string/keep_logged_in"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:id="@+id/swtKeepLoggedIn"
@@ -134,7 +136,7 @@
             />
 
     <Button
-            android:text="Entrar"
+            android:text="@string/login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnEntrar"

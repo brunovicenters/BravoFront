@@ -22,4 +22,10 @@
     <string name="Register">Cadastrar</string>
     <string name="login">Entrar</string>
     <string name="e_mail">E-mail</string>
+    <string name="email_label">E-mail:*</string>
+    <string name="password_label">Senha:*</string>
+    <string name="password">Senha</string>
+    <string name="dont_have_account">Não possui uma conta ainda?</string>
+    <string name="create_account">Crie sua conta</string>
+    <string name="keep_logged_in">Manter Logado</string>
 </resources>
