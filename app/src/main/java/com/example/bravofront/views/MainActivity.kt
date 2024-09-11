@@ -19,12 +19,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var frag : Fragment
 
-    private var sp : SharedPreferences = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
+    lateinit var sp : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sp = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
         frag = HomeFragment.newInstance()
         supportFragmentManager
@@ -76,6 +78,14 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        sp.edit().remove("user").apply()
+        val edit = sp.edit()
+        edit.remove("user")
+
+        if(!sp.getBoolean("keepLogin", false)) {
+            edit.remove("email")
+            edit.remove("password")
+        }
+
+        edit.apply()
     }
 }

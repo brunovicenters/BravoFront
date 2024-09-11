@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 class API(private val ctx: Context?) {
 
-    private val baseUrl = "http://10.135.151.17:8000/"
+    private val baseUrl = "http://192.168.15.13:8000/"
 
     private val timeout = 30L
 

@@ -1,12 +1,18 @@
 package com.example.bravofront.views
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bravofront.R
 import com.example.bravofront.api.API
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.ActivityLoginBinding
 import com.example.bravofront.model.ApiResponse
 import com.example.bravofront.model.Login
+import com.example.bravofront.model.LoginRequest
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,11 +22,16 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
 
+    lateinit var sp : SharedPreferences
+
+    private var ctx: Context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sp = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
         binding.btnEntrar.setOnClickListener {
 
@@ -28,29 +39,59 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.inputPassword
 
             if (email.text.toString().isEmpty() || password.text.toString().isEmpty()) {
-                makeToast("Preencha todos os campos!", this)
+                makeToast(getString(R.string.fill_all_fields), ctx)
                 return@setOnClickListener
             }
 
             if (email.error != null || password.error != null) {
-                makeToast("E-mail ou senha inválidos!", this)
+                makeToast(getString(R.string.login_invalid), ctx)
                 return@setOnClickListener
             }
 
             val callback = object : Callback<ApiResponse<Login>> {
-                override fun onResponse(p0: Call<ApiResponse<Login>>, p1: Response<ApiResponse<Login>>) {
-                    TODO("Not yet implemented")
+                override fun onResponse(call: Call<ApiResponse<Login>>, res: Response<ApiResponse<Login>>) {
+
+                    if (res.isSuccessful) {
+
+                        val user = res.body()?.data?.user
+
+                        if (user != null) {
+                            val edit = sp.edit()
+
+                            val swi = binding.swtKeepLoggedIn
+                            if (swi.isChecked) {
+                                edit.putString("email", email.text.toString())
+                                edit.putString("password", password.text.toString())
+                                edit.putBoolean("keepLogin", true)
+                            }
+
+                            edit.putInt("user", user)
+
+                            edit.apply()
+
+                            finish()
+                        } else {
+                            makeToast(getString(R.string.login_invalid), ctx)
+                        }
+                    } else {
+                        if (res.code() == 404 || res.code() == 401) {
+
+                            makeToast(getString(R.string.login_invalid), ctx)
+
+                            Log.e("ERROR", res.errorBody().toString())
+                        }
+                    }
                 }
 
-                override fun onFailure(p0: Call<ApiResponse<Login>>, p1: Throwable) {
-                    TODO("Not yet implemented")
+                override fun onFailure(call: Call<ApiResponse<Login>>, t: Throwable) {
+                    makeToast(getString(R.string.login_invalid), ctx)
                 }
 
             }
 
-            API(null).login.login(email.text.toString(), password.text.toString()).enqueue(callback)
+            val loginRequest = LoginRequest(email.text.toString(), password.text.toString(),)
 
-            finish()
+            API(null).login.login(loginRequest).enqueue(callback)
         }
     }
 }

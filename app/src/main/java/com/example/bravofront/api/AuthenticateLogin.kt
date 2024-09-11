@@ -1,6 +1,7 @@
 package com.example.bravofront.api
 
 import android.content.Context
+import com.example.bravofront.model.LoginRequest
 import okhttp3.*
 
 const val ARQUIVO_LOGIN = "login"
@@ -24,8 +25,10 @@ class AuthenticateToken(private val ctx: Context): Interceptor, Authenticator {
         val email = prefs.getString("email", "") as String
         val password = prefs.getString("password", "") as String
 
-        val resRetrofit = API(null).login.login(email, password).execute()
-        var user = resRetrofit.body()?.data?.user
+        val loginRequest = LoginRequest(email, password)
+
+        val resRetrofit = API(null).login.login(loginRequest).execute()
+        val user = resRetrofit.body()?.data?.user
 
         if (resRetrofit.isSuccessful && user != null) {
             prefs.edit().putInt("user", user).apply()

@@ -28,4 +28,6 @@
     <string name="dont_have_account">Não possui uma conta ainda?</string>
     <string name="create_account">Crie sua conta</string>
     <string name="keep_logged_in">Manter Logado</string>
+    <string name="login_invalid">E-mail ou senha inválidos!</string>
+    <string name="fill_all_fields">Preencha todos os campos!</string>
 </resources>
