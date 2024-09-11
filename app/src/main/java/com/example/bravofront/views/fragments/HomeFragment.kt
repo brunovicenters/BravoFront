@@ -274,7 +274,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        API.home.index().enqueue(callback)
+        API(null).home.index().enqueue(callback)
 
         turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
     }
