@@ -1,10 +1,12 @@
 package com.example.bravofront.views
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bravofront.R
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.ActivityMainBinding
 import com.example.bravofront.views.fragments.HomeFragment
 import com.example.bravofront.views.fragments.LoggedProfileFragment
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
 
     lateinit var frag : Fragment
+
+    private var sp : SharedPreferences = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.profile -> {
-                    if (false) {
+                    if (sp.getInt("user", -1) != -1) {
                         frag = LoggedProfileFragment.newInstance()
                         supportFragmentManager
                             .beginTransaction()
@@ -67,5 +71,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        sp.edit().remove("user").apply()
     }
 }
