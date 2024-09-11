@@ -1,0 +1,38 @@
+package com.example.bravofront.api
+
+import android.content.Context
+import okhttp3.*
+
+const val ARQUIVO_LOGIN = "login"
+
+class AuthenticateToken(private val ctx: Context): Interceptor, Authenticator {
+
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val prefs = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
+        val user = prefs.getInt("user", -1)
+
+        val request = chain.request().newBuilder()
+            .header("user", user.toString())
+            .build()
+
+        return chain.proceed(request)
+    }
+
+    override fun authenticate(route: Route?, response: Response): Request? {
+        val prefs = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
+
+        val email = prefs.getString("email", "") as String
+        val password = prefs.getString("password", "") as String
+
+        val resRetrofit = API(null).login.login(email, password).execute()
+        var user = resRetrofit.body()?.data?.user
+
+        if (resRetrofit.isSuccessful && user != null) {
+            prefs.edit().putInt("user", user).apply()
+
+            return response.request.newBuilder().header("user", user.toString()).build()
+        }
+        return null
+    }
+
+}
