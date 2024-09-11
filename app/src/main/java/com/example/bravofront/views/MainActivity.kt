@@ -28,7 +28,22 @@ class MainActivity : AppCompatActivity() {
 
         sp = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
-        frag = HomeFragment.newInstance()
+        val currentFrag = intent.getIntExtra("frag", R.id.home)
+
+        binding.bottomNavView.selectedItemId = currentFrag
+
+        frag = when (currentFrag) {
+            R.id.search -> SearchFragment.newInstance("", "")
+            R.id.profile -> {
+                if (sp.getInt("user", -1) != -1) {
+                    LoggedProfileFragment.newInstance()
+                } else {
+                    UnLoggedProfileFragment.newInstance(this)
+                }
+            }
+            else -> HomeFragment.newInstance()
+        }
+
         supportFragmentManager
             .beginTransaction()
             .replace(binding.fragContainer.id, frag)
@@ -39,44 +54,29 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         binding.bottomNavView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> {
-                    frag = HomeFragment.newInstance()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(binding.fragContainer.id, frag)
-                        .commit()
-                }
-                R.id.search -> {
-                    frag = SearchFragment.newInstance("", "")
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(binding.fragContainer.id, frag)
-                        .commit()
-                }
+            frag = when (it.itemId) {
+                R.id.search -> SearchFragment.newInstance("", "")
                 R.id.profile -> {
+                    // sp.getString("email", "") != null && sp.getString("password", "") != null
                     if (sp.getInt("user", -1) != -1) {
-                        frag = LoggedProfileFragment.newInstance()
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(binding.fragContainer.id, frag)
-                            .commit()
+                        LoggedProfileFragment.newInstance()
                     } else {
-                        frag = UnLoggedProfileFragment.newInstance(this)
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(binding.fragContainer.id, frag)
-                            .commit()
+                        UnLoggedProfileFragment.newInstance(this)
                     }
-
                 }
+                else -> HomeFragment.newInstance()
             }
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.fragContainer.id, frag)
+                .commit()
             true
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
 
         val edit = sp.edit()
         edit.remove("user")

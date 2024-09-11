@@ -46,6 +46,7 @@ class UnLoggedProfileFragment(val ctx: Context) : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             val intent = Intent(ctx, LoginActivity::class.java)
+            intent.putExtra("frag", R.id.profile)
             startActivity(intent)
         }
 

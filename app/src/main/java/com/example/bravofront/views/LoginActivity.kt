@@ -33,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
 
         sp = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
+
         binding.btnEntrar.setOnClickListener {
 
             val email = binding.inputEmail
@@ -69,6 +73,11 @@ class LoginActivity : AppCompatActivity() {
 
                             edit.apply()
 
+                            val i = Intent(ctx, MainActivity::class.java)
+                            val currentFrag = intent.getIntExtra("frag", -1)
+                            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            i.putExtra("frag", currentFrag)
+                            startActivity(i)
                             finish()
                         } else {
                             makeToast(getString(R.string.login_invalid), ctx)

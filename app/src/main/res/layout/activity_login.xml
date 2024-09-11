@@ -148,4 +148,14 @@
             android:layout_marginStart="32dp"
             android:textColor="@color/white_100"/>
 
+    <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/backicon"
+            android:id="@+id/backBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
