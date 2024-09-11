@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             R.id.search -> SearchFragment.newInstance("", "")
             R.id.profile -> {
                 if (sp.getInt("user", -1) != -1) {
-                    LoggedProfileFragment.newInstance()
+                    LoggedProfileFragment.newInstance(this)
                 } else {
                     UnLoggedProfileFragment.newInstance(this)
                 }
@@ -57,9 +57,8 @@ class MainActivity : AppCompatActivity() {
             frag = when (it.itemId) {
                 R.id.search -> SearchFragment.newInstance("", "")
                 R.id.profile -> {
-                    // sp.getString("email", "") != null && sp.getString("password", "") != null
-                    if (sp.getInt("user", -1) != -1) {
-                        LoggedProfileFragment.newInstance()
+                    if (sp.getString("email", "") != "" && sp.getString("password", "") != "") {
+                        LoggedProfileFragment.newInstance(this)
                     } else {
                         UnLoggedProfileFragment.newInstance(this)
                     }

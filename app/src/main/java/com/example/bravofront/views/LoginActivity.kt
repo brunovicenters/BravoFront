@@ -64,11 +64,14 @@ class LoginActivity : AppCompatActivity() {
 
                             val swi = binding.swtKeepLoggedIn
                             if (swi.isChecked) {
-                                edit.putString("email", email.text.toString())
-                                edit.putString("password", password.text.toString())
+
                                 edit.putBoolean("keepLogin", true)
+                            } else {
+                                edit.putBoolean("keepLogin", false)
                             }
 
+                            edit.putString("email", email.text.toString())
+                            edit.putString("password", password.text.toString())
                             edit.putInt("user", user)
 
                             edit.apply()

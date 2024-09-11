@@ -1,11 +1,17 @@
 package com.example.bravofront.views.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bravofront.R
+import com.example.bravofront.api.ARQUIVO_LOGIN
+import com.example.bravofront.databinding.FragmentLoggedProfileBinding
+import com.example.bravofront.databinding.FragmentUnLoggedProfileBinding
+import com.example.bravofront.views.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,7 +23,10 @@ import com.example.bravofront.R
  * Use the [LoggedProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LoggedProfileFragment : Fragment() {
+class LoggedProfileFragment(val ctx: Context) : Fragment() {
+
+    lateinit var binding: FragmentLoggedProfileBinding
+
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
@@ -34,8 +43,26 @@ class LoggedProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_logged_profile, container, false)
+        binding = FragmentLoggedProfileBinding.inflate(inflater, container, false)
+
+        binding.btnLogout.setOnClickListener {
+            val sp = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
+
+            val edit = sp.edit()
+
+            edit.remove("user")
+            edit.remove("email")
+            edit.remove("password")
+            edit.putBoolean("keepLogin", false)
+
+            edit.apply()
+
+            val intent = Intent(ctx, MainActivity::class.java)
+            intent.putExtra("frag", R.id.home)
+            startActivity(intent)
+        }
+
+        return binding.root
     }
 
     companion object {
@@ -49,8 +76,8 @@ class LoggedProfileFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() =
-            LoggedProfileFragment()
+        fun newInstance(ctx: Context) =
+            LoggedProfileFragment(ctx)
 //                .apply {
 //                    arguments = Bundle().apply {
 //                        putString(ARG_PARAM1, param1)
