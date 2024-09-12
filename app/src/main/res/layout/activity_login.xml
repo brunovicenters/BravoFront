@@ -83,7 +83,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             app:boxBackgroundColor="@color/disabled"
-            android:id="@+id/textInputLayout1">
+            android:id="@+id/textInputLayout1"
+            app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -92,7 +93,8 @@
                 android:fontFamily="@font/fugaz_one"
                 android:textColor="@color/main"
                 android:id="@+id/inputPassword"
-                android:inputType="text|textPassword|textNoSuggestions"/>
+                android:inputType="text|textPassword|textNoSuggestions"
+                />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
