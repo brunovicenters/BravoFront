@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 class API(private val ctx: Context?) {
 
-    private val baseUrl = "http://192.168.15.13:8000/"
+    private val baseUrl = "http://10.135.151.19:8000/"
 
     private val timeout = 30L
 
@@ -55,4 +55,7 @@ class API(private val ctx: Context?) {
 
     val login: LoginAPI
         get() = retrofit.create(LoginAPI::class.java)
+
+    val profile: ProfileAPI
+        get() = retrofit.create(ProfileAPI::class.java)
 }
