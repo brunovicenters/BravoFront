@@ -6,7 +6,8 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.TermAndConditionsActivity">
+        tools:context=".views.TermAndConditionsActivity"
+        android:background="@color/white_100">
 
     <ImageView
             android:layout_width="32dp"
@@ -19,13 +20,55 @@
             android:layout_marginStart="16dp"
             android:contentDescription="@string/back_icon"/>
 
-    <TextView
-            android:text="Termos e Condições"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="80dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:text="@string/term_and_conditions_bravo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/main"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                    android:text="@string/last_uptade_term_and_conditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView8"
+                    android:fontFamily="@font/federant"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/fourthary"/>
+
+            <TextView
+                    android:text="@string/term_and_conditions_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/fugaz_one"
+                    android:textColor="@color/negative"
+                    android:textSize="12sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

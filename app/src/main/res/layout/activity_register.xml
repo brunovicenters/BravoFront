@@ -46,7 +46,7 @@
                     android:contentDescription="@string/logo_desc"/>
 
             <TextView
-                    android:text="Nome:*"
+                    android:text="@string/name_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2"
@@ -76,7 +76,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nome"
+                        android:hint="@string/name"
                         android:fontFamily="@font/fugaz_one"
                         android:textColor="@color/main"
                         android:id="@+id/inputNome"
@@ -84,7 +84,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                    android:text="CPF:*"
+                    android:text="@string/cpf_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView4"
@@ -115,7 +115,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="CPF"
+                        android:hint="@string/cpf"
                         android:fontFamily="@font/fugaz_one"
                         android:textColor="@color/main"
                         android:id="@+id/inputCPF"
@@ -202,7 +202,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                    android:text="Confirmar Senha:*"
+                    android:text="@string/confirm_password_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView6"
@@ -242,7 +242,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                    android:text="Já possui conta?"
+                    android:text="@string/already_have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView7"
@@ -255,7 +255,7 @@
                     android:textSize="12sp"/>
 
             <TextView
-                    android:text="Entre na sua conta"
+                    android:text="@string/login_to_your_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtLogin"
@@ -282,7 +282,7 @@
                     />
 
             <TextView
-                    android:text="Termos e Condições"
+                    android:text="@string/term_and_conditions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtTermAndConditions"
