@@ -13,7 +13,6 @@ import com.example.bravofront.databinding.ActivityLoginBinding
 import com.example.bravofront.model.ApiResponse
 import com.example.bravofront.model.Login
 import com.example.bravofront.model.LoginRequest
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,12 +27,23 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         sp = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
         binding.backBtn.setOnClickListener {
+            if (intent.getBooleanExtra("register", false)) {
+                val i = Intent(ctx, RegisterActivity::class.java)
+                startActivity(i)
+            }
+            finish()
+        }
+
+        binding.txtCreateAccount.setOnClickListener {
+            val i = Intent(ctx, RegisterActivity::class.java)
+            i.putExtra("login", true)
+            startActivity(i)
             finish()
         }
 

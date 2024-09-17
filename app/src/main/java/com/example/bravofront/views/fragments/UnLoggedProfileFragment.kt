@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import com.example.bravofront.R
 import com.example.bravofront.databinding.FragmentUnLoggedProfileBinding
 import com.example.bravofront.views.LoginActivity
+import com.example.bravofront.views.RegisterActivity
+import com.example.bravofront.views.TermAndConditionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +49,17 @@ class UnLoggedProfileFragment(val ctx: Context) : Fragment() {
         binding.btnLogin.setOnClickListener {
             val intent = Intent(ctx, LoginActivity::class.java)
             intent.putExtra("frag", R.id.profile)
+            startActivity(intent)
+        }
+
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(ctx, RegisterActivity::class.java)
+            intent.putExtra("frag", R.id.profile)
+            startActivity(intent)
+        }
+
+        binding.btnTermAndCond.setOnClickListener {
+            val intent = Intent(ctx, TermAndConditionsActivity::class.java)
             startActivity(intent)
         }
 

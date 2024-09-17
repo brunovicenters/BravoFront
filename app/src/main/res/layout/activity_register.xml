@@ -258,14 +258,14 @@
                     android:text="Entre na sua conta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txtCreateAccount"
+                    android:id="@+id/txtLogin"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/fugaz_one"
+                    android:fontFamily="@font/federant"
                     android:textColor="@color/main"
-                    android:textSize="16sp"/>
+                    android:textSize="20sp"/>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                     android:text="@string/keep_logged_in"
@@ -288,9 +288,8 @@
                     android:id="@+id/txtTermAndConditions"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/swtKeepLoggedIn"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="32dp"
-                    android:fontFamily="@font/fugaz_one"
+                    android:fontFamily="@font/federant"
                     android:textColor="@color/main"
                     android:textSize="14sp"/>
 
@@ -300,12 +299,12 @@
                     android:id="@+id/swtTermAndConditions"
                     app:layout_constraintStart_toEndOf="@+id/txtTermAndConditions"
                     app:layout_constraintTop_toBottomOf="@+id/swtKeepLoggedIn"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/fugaz_one"
                     android:textColor="@color/secondary"
                     app:thumbTint="@color/switch_thumb_color"
                     app:trackTint="@color/switch_track_color"
-                    />
+                    android:layout_marginTop="-12dp"/>
 
             <Button
                     android:text="@string/login"

@@ -119,9 +119,9 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout1"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            android:fontFamily="@font/fugaz_one"
+            android:fontFamily="@font/federant"
             android:textColor="@color/main"
-            android:textSize="16sp"/>
+            android:textSize="20sp"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
             android:text="@string/keep_logged_in"
