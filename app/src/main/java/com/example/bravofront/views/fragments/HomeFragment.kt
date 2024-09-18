@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
     var headerThirdCategory = ProdutoIndex()
 
 
-    private val images = listOf(R.drawable.upfoto, R.drawable.fiatmobi, R.drawable.novasaveiro)
+    private val images = listOf(R.drawable.painel1bmw, R.drawable.painel2up, R.drawable.painel3tracker)
     private val autoScrollHandler = Handler(Looper.getMainLooper())
     private val autoScrollRunnable = object : Runnable {
         override fun run() {
