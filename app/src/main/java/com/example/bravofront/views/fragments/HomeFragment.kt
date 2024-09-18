@@ -252,7 +252,7 @@ class HomeFragment : Fragment() {
                     if (res.code() == 404 || res.code() == 401) {
                         Snackbar
                             .make(binding.containerHome,
-                                "Erro ao carregar promocoes",
+                                "Erro ao carregar os produtos",
                                 Snackbar.LENGTH_SHORT)
                             .show()
 
