@@ -74,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
 
                             val swi = binding.swtKeepLoggedIn
                             if (swi.isChecked) {
-
                                 edit.putBoolean("keepLogin", true)
                             } else {
                                 edit.putBoolean("keepLogin", false)
@@ -106,7 +105,9 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Login>>, t: Throwable) {
-                    makeToast(getString(R.string.login_invalid), ctx)
+                    makeToast(getString(R.string.failed_connect_server), ctx)
+
+                    Log.e("ERROR", getString(R.string.failed_execute_server), t)
                 }
 
             }
