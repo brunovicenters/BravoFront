@@ -48,4 +48,6 @@
     <string name="failed_execute_server">Falha ao executar serviço</string>
     <string name="failed_term_and_conditions">Para se cadastrar, você precisa aceitar os termos e condições</string>
     <string name="error_on_register">Erro ao cadastrar usuário</string>
+    <string name="country_currency">BR</string>
+    <string name="language_currency">pt-BR</string>
 </resources>

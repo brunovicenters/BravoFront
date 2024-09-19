@@ -21,12 +21,10 @@ fun turnOffLoading(swiper: SwipeRefreshLayout, progressBar: View, container: Vie
     container.visibility = View.VISIBLE
 }
 
-fun formatPrice(price: Double) : String {
-    val format = NumberFormat.getCurrencyInstance()
+fun formatPrice(price: Double, country: String, language: String) : String {
+    val format = NumberFormat.getCurrencyInstance(Locale(language, country))
     format.maximumFractionDigits = 2
 
-    // TODO: change according to idiom
-    format.currency = Currency.getInstance("BRL")
 
     return format.format(price)
 }

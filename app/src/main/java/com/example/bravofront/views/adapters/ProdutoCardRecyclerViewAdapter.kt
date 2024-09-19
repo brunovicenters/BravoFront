@@ -1,5 +1,6 @@
 package com.example.bravofront.views.adapters
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,9 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
 
 
 
-    class ViewHolder (private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (private val binding: CardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
-            if (produto.nome.length!! > 10) {
+            if (produto.nome.length > 10) {
                 val newText = produto.nome.take(10) + "..."
                 binding.cardTitle.text = newText
             } else {
@@ -27,11 +28,11 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
 
             if(produto.desconto != null && produto.desconto.toDouble() > 0.0) {
                 val newPrice = (produto.preco.toDouble() ?: 0.0) - (produto.desconto.toDouble() ?: 0.0)
-                binding.cardPrice.text = formatPrice(newPrice)
-                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(newPrice, ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
+                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             } else {
-                binding.cardPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.visibility = View.GONE
             }
 
@@ -48,7 +49,7 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
 
         val cardBinding = CardItemBinding.inflate(layoutInflater)
 
-        return ViewHolder(cardBinding)
+        return ViewHolder(cardBinding, parent.context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

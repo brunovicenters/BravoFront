@@ -1,5 +1,6 @@
 package com.example.bravofront.views.adapters
 
+import android.content.Context
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
 
-    inner class HeaderViewHolder(private val binding: HeaderCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class HeaderViewHolder(private val binding: HeaderCardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
             Log.d("HeaderViewHolder", "Binding header product: $produto")
 
@@ -36,11 +37,11 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
 
             if(produto.desconto != null && produto.desconto.toDouble() > 0.0) {
                 val newPrice = (produto.preco.toDouble() ?: 0.0) - (produto.desconto.toDouble() ?: 0.0)
-                binding.cardPrice.text = formatPrice(newPrice)
-                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(newPrice, ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
+                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             } else {
-                binding.cardPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.visibility = View.GONE
             }
 
@@ -51,7 +52,7 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
         }
     }
 
-    inner class ItemViewHolder(private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(private val binding: CardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
             if (produto.nome.length > 10) {
                 val newText = produto.nome.take(10) + "..."
@@ -62,11 +63,11 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
 
             if(produto.desconto != null && produto.desconto.toDouble() > 0.0) {
                 val newPrice = (produto.preco.toDouble() ?: 0.0) - (produto.desconto.toDouble() ?: 0.0)
-                binding.cardPrice.text = formatPrice(newPrice)
-                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(newPrice, ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
+                binding.cardOldPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             } else {
-                binding.cardPrice.text = formatPrice(produto.preco.toDouble())
+                binding.cardPrice.text = formatPrice(produto.preco.toDouble(), ctx.getString(R.string.country_currency), ctx.getString(R.string.language_currency))
                 binding.cardOldPrice.visibility = View.GONE
             }
 
@@ -87,13 +88,13 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
 
             val cardBinding = HeaderCardItemBinding.inflate(layoutInflater, parent, false)
 
-            HeaderViewHolder(cardBinding)
+            HeaderViewHolder(cardBinding, parent.context)
         } else {
             val layoutInflater = LayoutInflater.from(parent.context)
 
             val cardBinding = CardItemBinding.inflate(layoutInflater)
 
-            ItemViewHolder(cardBinding)
+            ItemViewHolder(cardBinding, parent.context)
         }
     }
 
