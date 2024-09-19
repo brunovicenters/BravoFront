@@ -54,9 +54,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cardPrice"
                 android:layout_gravity="center"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/fugaz_one"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/white_100"/>
 
         <TextView
@@ -65,9 +65,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cardOldPrice"
                 android:layout_gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/fugaz_one"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/highlight"/>
 
     </LinearLayout>
