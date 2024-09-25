@@ -7,24 +7,217 @@
              tools:context=".views.fragments.LoggedProfileFragment"
              android:background="@color/white_100">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <Button
-                android:text="Sair"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:id="@+id/btnLogout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/btn_text_color_normal"
-                android:backgroundTint="@color/btn_bg_color_normal"
-                app:strokeColor="@color/negative"
-                app:strokeWidth="1dp"
-                android:fontFamily="@font/fugaz_one"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:contentDescription="@string/config_btn"
+                    android:src="@drawable/settingsicon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/btnSettings"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="end"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nome"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="Nome"
+                        android:fontFamily="@font/federant"
+                        android:textSize="20sp"
+                        android:textColor="@color/negative"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/email"
+                        app:layout_constraintTop_toBottomOf="@+id/nome"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="8dp"
+                        tools:text="email@gmail.com"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        android:textColor="@color/negative"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cpf"
+                        tools:text="111.***.***-50"
+                        app:layout_constraintTop_toBottomOf="@+id/email"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        android:textColor="@color/negative"/>
+
+                <ImageView
+                        android:contentDescription="@string/edit_btn"
+                        android:src="@drawable/editicon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/btnEdit"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                <Button
+                        android:text="@string/my_orders"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnPedidos"
+                        android:textColor="@color/white_100"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/divider1"
+                        android:layout_marginEnd="8dp"/>
+
+                <Button
+                        android:text="@string/customer_service"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnSac"
+                        android:textColor="@color/white_100"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/divider1"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintTop_toBottomOf="@+id/btnPedidos"
+                        android:layout_marginTop="8dp"/>
+
+                <Button
+                        android:text="@string/my_adresses"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_100"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider1"
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/btnEnderecos"
+                        app:layout_constraintHorizontal_bias="0.0"/>
+
+                <Button
+                        android:text="@string/logout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnLogout"
+                        android:textColor="@color/white_100"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider1"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintTop_toBottomOf="@+id/btnEnderecos"
+                        android:layout_marginTop="8dp"/>
+
+                <View
+                        android:id="@+id/divider1"
+                        android:layout_width="1dp"
+                        android:layout_height="96dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLogout"
+                        app:layout_constraintStart_toEndOf="@+id/btnPedidos"/>
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnTermosECondicoes"
+                        android:textColor="@color/white_100"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/term_and_conditions"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+            <TextView
+                    android:text="@string/buy_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtCompreNovamente"
+                    android:textSize="34sp"
+                    android:textAlignment="viewStart"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/negative"
+                    android:fontFamily="@font/federant"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/card_item"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rvCompreNovamente"
+                    android:visibility="gone">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                    android:text="@string/recently_viewed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtVistosRecentemente"
+                    android:textSize="34sp"
+                    android:textAlignment="viewStart"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/negative"
+                    android:fontFamily="@font/federant"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/card_item"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rvVistosRecentemente"
+                    android:visibility="gone"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

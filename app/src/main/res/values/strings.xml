@@ -50,4 +50,11 @@
     <string name="error_on_register">Erro ao cadastrar usuário</string>
     <string name="country_currency">BR</string>
     <string name="language_currency">pt-BR</string>
+    <string name="recently_viewed">Vistos Recentemente</string>
+    <string name="buy_again">Compre Novamente</string>
+    <string name="logout">Sair</string>
+    <string name="my_adresses">Meus Endereços</string>
+    <string name="my_orders">Meus Pedidos</string>
+    <string name="edit_btn">Botão de edição de perfil</string>
+    <string name="config_btn">Botão da página de configurações</string>
 </resources>
