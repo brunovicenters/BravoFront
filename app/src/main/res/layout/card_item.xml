@@ -46,7 +46,6 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-                android:text="Nome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cardTitle"
@@ -55,10 +54,10 @@
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/white_100"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                tools:text="Nome"/>
 
         <TextView
-                android:text="Preco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cardPrice"
@@ -66,10 +65,10 @@
                 android:textSize="24sp"
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/white_100"/>
+                android:textColor="@color/white_100"
+                tools:text="Preco"/>
 
         <TextView
-                android:text="Desconto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cardOldPrice"
@@ -77,7 +76,8 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/fugaz_one"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/highlight"/>
+                android:textColor="@color/highlight"
+                tools:text="Desconto"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
