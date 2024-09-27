@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   android:layout_width="250dp"
-                                   android:layout_height="310dp"
+                                   xmlns:tools="http://schemas.android.com/tools"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
                                    app:cardElevation="4dp"
                                    android:layout_margin="8dp"
                                    app:cardUseCompatPadding="true"
                                    android:id="@+id/cardContainer"
-                                   app:cardCornerRadius="20dp">
+                                   app:cardCornerRadius="20dp"
+                                   android:orientation="vertical">
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="280dp"
             android:background="@color/main"
-            android:id="@+id/containerCardItem">
+            android:id="@+id/containerCardItem"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:minWidth="180dp">
 
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -24,7 +29,8 @@
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
                 android:id="@+id/cardImgContainer"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:minWidth="150dp">
 
             <ImageView
                     android:layout_width="match_parent"
@@ -32,7 +38,10 @@
                     app:srcCompat="@drawable/no_car_img"
                     android:id="@+id/cardImg"
                     android:contentDescription="@string/no_image_found"
-                    android:background="@color/white"/>
+                    android:background="@color/white"
+                    android:scaleType="centerInside"
+                    tools:srcCompat="@drawable/painel1bmw"
+                    android:minWidth="150dp"/>
 
         </androidx.cardview.widget.CardView>
 

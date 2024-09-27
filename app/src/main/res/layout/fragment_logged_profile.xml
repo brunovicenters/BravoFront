@@ -29,8 +29,8 @@
                 <ImageView
                         android:contentDescription="@string/config_btn"
                         android:src="@drawable/settingsicon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:id="@+id/btnSettings"
                         android:layout_margin="16dp"
                         android:layout_gravity="end"/>
@@ -38,7 +38,9 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="16dp">
+                        android:paddingTop="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -46,9 +48,9 @@
                             android:id="@+id/nome"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            tools:text="Nome"
+                            tools:text="Bruno Vicente Rod..."
                             android:fontFamily="@font/federant"
-                            android:textSize="20sp"
+                            android:textSize="34sp"
                             android:textColor="@color/negative"/>
 
                     <TextView
@@ -58,9 +60,9 @@
                             app:layout_constraintTop_toBottomOf="@+id/nome"
                             app:layout_constraintStart_toStartOf="parent"
                             android:layout_marginTop="8dp"
-                            tools:text="email@gmail.com"
+                            tools:text="email@gmail.commmmmmmmmmmmmm..."
                             android:fontFamily="@font/fugaz_one"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:textColor="@color/negative"/>
 
                     <TextView
@@ -72,7 +74,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/fugaz_one"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:textColor="@color/negative"/>
 
                     <ImageView
@@ -191,7 +193,8 @@
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -200,13 +203,14 @@
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:id="@+id/rvCompreNovamente"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
                         android:text="@string/recently_viewed"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtVistosRecentemente"
                         android:textSize="34sp"
@@ -216,7 +220,8 @@
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -225,7 +230,8 @@
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:id="@+id/rvVistosRecentemente"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

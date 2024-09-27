@@ -78,9 +78,9 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
 
         val edit = sp.edit()
-        edit.remove("user")
 
         if(!sp.getBoolean("keepLogin", false)) {
+            edit.remove("user")
             edit.remove("email")
             edit.remove("password")
         }

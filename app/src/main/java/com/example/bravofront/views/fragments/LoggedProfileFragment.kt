@@ -95,13 +95,13 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
 
         val recentlyViewed = getRecentlyViewed(ctx)
 
-        if (recentlyViewed != null) {
+        if (!recentlyViewed.isNullOrEmpty()) {
             isRV = true
             recentlyViewedAdapter = ProdutoCardRecyclerViewAdapter(listRecViewed)
+            binding.rvVistosRecentemente.adapter = recentlyViewedAdapter
         }
 
         binding.rvCompreNovamente.adapter = buyAgainAdapter
-        binding.rvVistosRecentemente.adapter = recentlyViewedAdapter
 
         binding.swpRefresh.setOnRefreshListener {
             updateProfile()
@@ -122,13 +122,49 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
                 c: Call<ApiResponse<ProfileShow>>,
                 res: Response<ApiResponse<ProfileShow>>
             ) {
-
                 if (res.isSuccessful) {
 
+                    val apiResponse = res.body()
 
+                    apiResponse?.let {
+
+                        val profile = it.data
+
+                        val user = profile.user
+
+                        if (user.name.length > 18) {
+                            val newText = user.name.take(18) + "..."
+                            binding.nome.text = newText
+                        } else {
+                            binding.nome.text = user.name
+                        }
+
+                        if (user.email.length > 28) {
+                            val newText = user.email.take(28) + "..."
+                            binding.email.text = newText
+                        } else {
+                            binding.email.text = user.email
+                        }
+
+                        binding.cpf.text = user.cpf
+
+                        val buyAgain = profile.compreNovamente
+                        if (buyAgain.isNotEmpty()) {
+                            listBuyAgain.clear()
+                            listBuyAgain.addAll(buyAgain)
+                            binding.txtCompreNovamente.visibility = View.VISIBLE
+                            binding.rvCompreNovamente.visibility = View.VISIBLE
+                            buyAgainAdapter.notifyDataSetChanged()
+                        }
+
+                        if (isRV) {
+                            binding.txtVistosRecentemente.visibility = View.VISIBLE
+                            binding.rvVistosRecentemente.visibility = View.VISIBLE
+                        }
+
+                    }
 
                 } else {
-
                     makeToast("Erro ao carregar perfil", ctx)
                 }
 
@@ -142,7 +178,7 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
 
         }
 
-        API(null).profile.show(ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1).toString()).enqueue(callback)
+        API(ctx).profile.show(ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1).toString()).enqueue(callback)
 
         turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstProfileShow)
     }
