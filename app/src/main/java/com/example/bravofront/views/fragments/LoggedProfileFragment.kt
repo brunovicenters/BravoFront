@@ -2,47 +2,43 @@ package com.example.bravofront.views.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bravofront.R
+import com.example.bravofront.api.API
 import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.FragmentLoggedProfileBinding
 import com.example.bravofront.databinding.FragmentUnLoggedProfileBinding
-import com.example.bravofront.views.MainActivity
+import com.example.bravofront.model.ApiResponse
+import com.example.bravofront.model.Login
+import com.example.bravofront.model.ProdutoIndex
+import com.example.bravofront.model.ProfileShow
+import com.example.bravofront.views.*
+import com.example.bravofront.views.adapters.ProdutoCardRecyclerViewAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoggedProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoggedProfileFragment(val ctx: Context) : Fragment() {
 
     lateinit var binding: FragmentLoggedProfileBinding
 
-    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
+    lateinit var buyAgainAdapter: ProdutoCardRecyclerViewAdapter
+    val listBuyAgain = arrayListOf<ProdutoIndex>()
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-//    }
+    var isRV: Boolean = false
+    lateinit var recentlyViewedAdapter: ProdutoCardRecyclerViewAdapter
+    val listRecViewed = arrayListOf<ProdutoIndex>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoggedProfileBinding.inflate(inflater, container, false)
 
         binding.btnLogout.setOnClickListener {
@@ -62,27 +58,98 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
             startActivity(intent)
         }
 
+        binding.btnTermosECondicoes.setOnClickListener {
+            val intent = Intent(ctx, TermAndConditionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnSac.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.setData(Uri.parse("tel:11990225294"))
+            startActivity(intent)
+        }
+
+        binding.btnPedidos.setOnClickListener {
+            //TODO: Add pedidos
+            makeToast("Not Implemented Yet", ctx)
+        }
+
+        binding.btnEnderecos.setOnClickListener {
+            //TODO: Add endereços
+            makeToast("Not Implemented Yet", ctx)
+        }
+
+        binding.btnSettings.setOnClickListener {
+            //TODO: Add Configurações
+            makeToast("Not Implemented Yet", ctx)
+        }
+
+        binding.btnEdit.setOnClickListener {
+            //TODO: Add Edit Profile
+            makeToast("Not Implemented Yet", ctx)
+        }
+
+        turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstProfileShow)
+
+        buyAgainAdapter = ProdutoCardRecyclerViewAdapter(listBuyAgain)
+
+        val recentlyViewed = getRecentlyViewed(ctx)
+
+        if (recentlyViewed != null) {
+            isRV = true
+            recentlyViewedAdapter = ProdutoCardRecyclerViewAdapter(listRecViewed)
+        }
+
+        binding.rvCompreNovamente.adapter = buyAgainAdapter
+        binding.rvVistosRecentemente.adapter = recentlyViewedAdapter
+
+        binding.swpRefresh.setOnRefreshListener {
+            updateProfile()
+        }
+
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        updateProfile()
+    }
+
+    fun updateProfile() {
+        val callback = object : Callback<ApiResponse<ProfileShow>> {
+            override fun onResponse(
+                c: Call<ApiResponse<ProfileShow>>,
+                res: Response<ApiResponse<ProfileShow>>
+            ) {
+
+                if (res.isSuccessful) {
+
+
+
+                } else {
+
+                    makeToast("Erro ao carregar perfil", ctx)
+                }
+
+            }
+
+            override fun onFailure(c: Call<ApiResponse<ProfileShow>>, t: Throwable) {
+                makeToast(getString(R.string.failed_connect_server), ctx)
+
+                Log.e("ERROR", getString(R.string.failed_execute_server), t)
+            }
+
+        }
+
+        API(null).profile.show(ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1).toString()).enqueue(callback)
+
+        turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstProfileShow)
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(ctx: Context) =
             LoggedProfileFragment(ctx)
-//                .apply {
-//                    arguments = Bundle().apply {
-//                        putString(ARG_PARAM1, param1)
-//                        putString(ARG_PARAM2, param2)
-//                    }
-//                }
     }
 }

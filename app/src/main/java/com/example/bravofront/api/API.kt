@@ -57,5 +57,5 @@ class API(private val ctx: Context?) {
         get() = retrofit.create(LoginAPI::class.java)
 
     val profile: ProfileAPI
-        get() = retrofit.create(ProfileAPI::class.java)
+        get() = authRetrofit.create(ProfileAPI::class.java)
 }

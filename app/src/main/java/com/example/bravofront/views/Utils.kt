@@ -7,9 +7,13 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.bravofront.model.ProdutoIndex
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.text.NumberFormat
 import java.util.*
 
+// Turn on and off loading
 fun turnOnLoading(swiper: SwipeRefreshLayout, progressBar: View, container: View) {
     swiper.isRefreshing = true
     progressBar.visibility = View.VISIBLE
@@ -21,6 +25,7 @@ fun turnOffLoading(swiper: SwipeRefreshLayout, progressBar: View, container: Vie
     container.visibility = View.VISIBLE
 }
 
+// Format price
 fun formatPrice(price: Double, country: String, language: String) : String {
     val format = NumberFormat.getCurrencyInstance(Locale(language, country))
     format.maximumFractionDigits = 2
@@ -29,10 +34,13 @@ fun formatPrice(price: Double, country: String, language: String) : String {
     return format.format(price)
 }
 
+
+// Make toast
 fun makeToast(message: String, ctx: Context) {
     Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show()
 }
 
+// Add cpf mask
 fun EditText.addCpfMask() {
     this.addTextChangedListener(object : TextWatcher {
         var isUpdating: Boolean = false
@@ -61,4 +69,23 @@ fun EditText.addCpfMask() {
             this@addCpfMask.setSelection(maskedString.length)
         }
     })
+}
+
+// Store and get Recently viewed items
+fun setRecentlyViewed(list:ArrayList<ProdutoIndex>, ctx: Context){
+    val editor = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE).edit()
+
+    val gson = Gson()
+    val json = gson.toJson(list)
+    editor.putString("RecentlyViewed",json)
+    editor.commit()
+}
+
+fun getRecentlyViewed(ctx: Context):ArrayList<ProdutoIndex>? {
+    val preferences = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE)
+
+    val gson = Gson()
+    val json = preferences.getString("RecentlyViewed",null)
+    val type = object :TypeToken<ArrayList<ProdutoIndex>>(){}.type//converting the json to list
+    return gson.fromJson(json,type)//returning the list
 }

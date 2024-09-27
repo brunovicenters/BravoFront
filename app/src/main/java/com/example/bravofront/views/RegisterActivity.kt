@@ -148,7 +148,7 @@ class RegisterActivity : AppCompatActivity() {
 
             }
 
-            API(null).profile.register(registerRequest).enqueue(callback)
+            API(null).login.register(registerRequest).enqueue(callback)
         }
     }
 }

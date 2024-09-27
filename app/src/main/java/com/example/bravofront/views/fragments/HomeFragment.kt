@@ -252,7 +252,7 @@ class HomeFragment : Fragment() {
                     if (res.code() == 404 || res.code() == 401) {
                         Snackbar
                             .make(binding.containerHome,
-                                "Erro ao carregar os produtos",
+                                getString(R.string.failed_loading_products),
                                 Snackbar.LENGTH_SHORT)
                             .show()
 

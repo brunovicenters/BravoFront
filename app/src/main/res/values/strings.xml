@@ -57,4 +57,5 @@
     <string name="my_orders">Meus Pedidos</string>
     <string name="edit_btn">Botão de edição de perfil</string>
     <string name="config_btn">Botão da página de configurações</string>
+    <string name="failed_loading_products">Erro ao carregar os produtos</string>
 </resources>
