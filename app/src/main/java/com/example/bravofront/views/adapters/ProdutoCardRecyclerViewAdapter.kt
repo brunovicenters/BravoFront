@@ -15,8 +15,6 @@ import com.squareup.picasso.Picasso
 class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
     : RecyclerView.Adapter<ProdutoCardRecyclerViewAdapter.ViewHolder>() {
 
-
-
     class ViewHolder (private val binding: CardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
             if (produto.nome.length > 10) {
@@ -37,9 +35,9 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
             }
 
             Picasso.get()
-                .load(produto.imagem)
+                .load(produto.imagem?.trim())
                 .error(R.drawable.no_car_img)
-                .into(binding.cardImg)
+                .into(binding.imgProduct)
 
         }
     }

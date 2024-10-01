@@ -46,9 +46,9 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
             }
 
             Picasso.get()
-                .load(produto.imagem)
+                .load(produto.imagem?.trim())
                 .error(R.drawable.no_car_img)
-                .into(binding.cardImg)
+                .into(binding.imgProduct)
         }
     }
 
@@ -74,7 +74,8 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
             Picasso.get()
                 .load(produto.imagem?.trim())
                 .error(R.drawable.no_car_img)
-                .into(binding.cardImg)
+                .into(binding.imgProduct)
+
         }
     }
 
