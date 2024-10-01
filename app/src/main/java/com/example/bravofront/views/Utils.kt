@@ -14,15 +14,15 @@ import java.text.NumberFormat
 import java.util.*
 
 // Turn on and off loading
-fun turnOnLoading(swiper: SwipeRefreshLayout, progressBar: View, container: View) {
-    swiper.isRefreshing = true
-    progressBar.visibility = View.VISIBLE
-    container.visibility = View.INVISIBLE
+fun turnOnLoading(swiper: SwipeRefreshLayout?, progressBar: View?, container: View?) {
+    swiper?.isRefreshing = true
+    progressBar?.visibility = View.VISIBLE
+    container?.visibility = View.INVISIBLE
 }
-fun turnOffLoading(swiper: SwipeRefreshLayout, progressBar: View, container: View) {
-    swiper.isRefreshing = false
-    progressBar.visibility = View.GONE
-    container.visibility = View.VISIBLE
+fun turnOffLoading(swiper: SwipeRefreshLayout?, progressBar: View?, container: View?) {
+    swiper?.isRefreshing = false
+    progressBar?.visibility = View.GONE
+    container?.visibility = View.VISIBLE
 }
 
 // Format price
