@@ -59,4 +59,12 @@
     <string name="config_btn">Botão da página de configurações</string>
     <string name="failed_loading_products">Erro ao carregar os produtos</string>
     <string name="no_description">Sem descricão.</string>
+    <string name="main_photo">Foto principal do Produto</string>
+    <string name="minus_icon">Ícone de menos</string>
+    <string name="plus_icon">Ícone de mais</string>
+    <string name="zero">0</string>
+    <string name="add_to_shopcart">Adicionar ao Carrinho</string>
+    <string name="buy">COMPRAR</string>
+    <string name="description">Descrição</string>
+    <string name="maybe_like">Você talvez goste também</string>
 </resources>

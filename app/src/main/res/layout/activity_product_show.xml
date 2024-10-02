@@ -11,6 +11,7 @@
         >
 
     <ImageView
+            android:contentDescription="@string/main_photo"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:srcCompat="@drawable/backicon"
@@ -163,6 +164,7 @@
                                 android:padding="4dp">
 
                             <ImageView
+                                    android:contentDescription="@string/minus_icon"
                                     android:src="@drawable/minusicon"
                                     android:layout_width="56dp"
                                     android:layout_height="56dp"
@@ -176,7 +178,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/txtQuantity"
-                                    android:text="0"
+                                    android:text="@string/zero"
                                     android:fontFamily="@font/federant"
                                     android:textSize="48sp"
                                     android:textColor="@color/main"
@@ -186,6 +188,7 @@
                                     app:layout_constraintEnd_toStartOf="@+id/btnPlus"/>
 
                             <ImageView
+                                    android:contentDescription="@string/plus_icon"
                                     android:src="@drawable/plusicon"
                                     android:layout_width="56dp"
                                     android:layout_height="56dp"
@@ -198,6 +201,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <ImageView
+                            android:contentDescription="@string/add_to_shopcart"
                             android:src="@drawable/shopcartwhite"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
@@ -210,7 +214,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                    android:text="COMPRAR"
+                    android:text="@string/buy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/btnBuy"
@@ -224,7 +228,7 @@
                     android:layout_marginEnd="16dp"/>
 
             <TextView
-                    android:text="Descrição"
+                    android:text="@string/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView10"
@@ -248,7 +252,7 @@
                     android:paddingEnd="16dp"/>
 
             <TextView
-                    android:text="Você talvez goste também"
+                    android:text="@string/maybe_like"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtAlike"
