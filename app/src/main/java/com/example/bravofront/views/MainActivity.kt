@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     UnLoggedProfileFragment.newInstance(this)
                 }
             }
-            else -> HomeFragment.newInstance()
+            else -> HomeFragment.newInstance(this)
         }
 
         supportFragmentManager
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         UnLoggedProfileFragment.newInstance(this)
                     }
                 }
-                else -> HomeFragment.newInstance()
+                else -> HomeFragment.newInstance(this)
             }
 
             supportFragmentManager

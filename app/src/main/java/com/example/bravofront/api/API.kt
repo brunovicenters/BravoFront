@@ -50,8 +50,8 @@ class API(private val ctx: Context?) {
     val home: HomeAPI
         get() = retrofit.create(HomeAPI::class.java)
 
-    val search: SearchAPI
-        get() = retrofit.create(SearchAPI::class.java)
+    val produto: ProdutoAPI
+        get() = retrofit.create(ProdutoAPI::class.java)
 
     val login: LoginAPI
         get() = retrofit.create(LoginAPI::class.java)

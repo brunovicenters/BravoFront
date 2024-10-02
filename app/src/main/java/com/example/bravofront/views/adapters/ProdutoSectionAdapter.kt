@@ -1,6 +1,8 @@
 package com.example.bravofront.views.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,17 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bravofront.R
 import com.example.bravofront.databinding.CardItemBinding
 import com.example.bravofront.databinding.HeaderCardItemBinding
 
 import com.example.bravofront.model.ProdutoIndex
+import com.example.bravofront.views.ProductShowActivity
 import com.example.bravofront.views.formatPrice
 import com.squareup.picasso.Picasso
 
 
-class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private val header: ProdutoIndex)
+class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private val header: ProdutoIndex, private val screen: Int? = null)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val VIEW_TYPE_HEADER = 0
@@ -26,6 +30,15 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
 
     inner class HeaderViewHolder(private val binding: HeaderCardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
+
+            binding.root.setOnClickListener {
+                val i = Intent(ctx, ProductShowActivity::class.java)
+                i.putExtra("id", produto.id)
+                i.putExtra("screen", screen)
+                startActivity(ctx, i, null)
+                (ctx as Activity).finish()
+            }
+
             Log.d("HeaderViewHolder", "Binding header product: $produto")
 
             if (produto.nome.length > 20) {
@@ -54,6 +67,15 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
 
     inner class ItemViewHolder(private val binding: CardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
+
+            binding.root.setOnClickListener {
+                val i = Intent(ctx, ProductShowActivity::class.java)
+                i.putExtra("id", produto.id)
+                i.putExtra("screen", screen)
+                startActivity(ctx, i, null)
+                (ctx as Activity).finish()
+            }
+
             if (produto.nome.length > 10) {
                 val newText = produto.nome.take(10) + "..."
                 binding.cardTitle.text = newText

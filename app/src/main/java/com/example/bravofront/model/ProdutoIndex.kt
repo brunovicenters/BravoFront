@@ -5,5 +5,5 @@ data class ProdutoIndex(
 	val desconto: String? = null,
 	val imagem: String? = null,
 	val nome: String = "Carro",
-	val id: Int? = null
+	val id: Int = -1
 )

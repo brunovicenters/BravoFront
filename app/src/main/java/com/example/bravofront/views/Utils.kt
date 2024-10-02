@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.text.NumberFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 // Turn on and off loading
 fun turnOnLoading(swiper: SwipeRefreshLayout?, progressBar: View?, container: View?) {
@@ -72,16 +73,33 @@ fun EditText.addCpfMask() {
 }
 
 // Store and get Recently viewed items
-fun setRecentlyViewed(list:ArrayList<ProdutoIndex>, ctx: Context){
+fun setRecentlyViewed(ctx: Context, item: ProdutoIndex) {
     val editor = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE).edit()
 
     val gson = Gson()
-    val json = gson.toJson(list)
+
+    var list = getRecentlyViewed(ctx)?.toMutableList()
+    if (list == null) {
+        list = mutableListOf(item)
+    } else {
+        if(list.indexOf(item) > -1) {
+            list.remove(item)
+            list.add(0, item)
+        } else {
+            list.add(0, item)
+        }
+    }
+
+    if (list.size > 10) {
+        list.removeLast()
+    }
+
+    val json = gson.toJson(list.toList())
     editor.putString("RecentlyViewed",json)
     editor.commit()
 }
 
-fun getRecentlyViewed(ctx: Context):ArrayList<ProdutoIndex>? {
+fun getRecentlyViewed(ctx: Context):List<ProdutoIndex>? {
     val preferences = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE)
 
     val gson = Gson()

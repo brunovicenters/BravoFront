@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   xmlns:tools="http://schemas.android.com/tools"
-                                   android:layout_width="100dp"
-                                   android:layout_height="150dp"
-                                   app:cardBackgroundColor="@color/white"
-                                   app:contentPadding="0dp">
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="@color/white"
+        app:contentPadding="0dp"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
     <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="0dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             android:id="@+id/cardImgContainer"
@@ -22,13 +27,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/no_car_img"
-                android:id="@+id/imgProduct"
+                android:id="@+id/imgProductCarousel"
                 android:contentDescription="@string/no_image_found"
                 android:background="@color/white"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@drawable/logo_min"
-                android:minWidth="150dp"
-                />
+                android:maxWidth="100dp"
+                android:maxHeight="150dp"/>
 
     </androidx.cardview.widget.CardView>
 </androidx.cardview.widget.CardView>

@@ -22,7 +22,7 @@ class UnLoggedProfileFragment(val ctx: Context) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentUnLoggedProfileBinding.inflate(inflater, container, false)
 
         binding.btnLogin.setOnClickListener {

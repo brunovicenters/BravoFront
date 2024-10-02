@@ -33,7 +33,7 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
 
     var isRV: Boolean = false
     lateinit var recentlyViewedAdapter: ProdutoCardRecyclerViewAdapter
-    val listRecViewed = arrayListOf<ProdutoIndex>()
+    val listRecViewed = getRecentlyViewed(ctx)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,13 +91,11 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
 
         turnOnLoading(binding.swpRefresh, binding.progressBar, binding.nstProfileShow)
 
-        buyAgainAdapter = ProdutoCardRecyclerViewAdapter(listBuyAgain)
+        buyAgainAdapter = ProdutoCardRecyclerViewAdapter(listBuyAgain, R.id.profile)
 
-        val recentlyViewed = getRecentlyViewed(ctx)
-
-        if (!recentlyViewed.isNullOrEmpty()) {
+        if (!listRecViewed.isNullOrEmpty()) {
             isRV = true
-            recentlyViewedAdapter = ProdutoCardRecyclerViewAdapter(listRecViewed)
+            recentlyViewedAdapter = ProdutoCardRecyclerViewAdapter(listRecViewed, R.id.profile)
             binding.rvVistosRecentemente.adapter = recentlyViewedAdapter
         }
 

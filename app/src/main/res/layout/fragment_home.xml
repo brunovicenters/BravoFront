@@ -55,7 +55,8 @@
                         android:textColor="@color/negative"
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="40dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/recyclePromo"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <TextView
                         android:text="@string/most_selled"
@@ -76,7 +78,8 @@
                         android:fontFamily="@font/federant"
                         android:layout_marginTop="16dp"
                         android:id="@+id/txtMostSelled"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
@@ -84,7 +87,8 @@
                         tools:listitem="@layout/card_item"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/recycle_most_sold"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 <LinearLayout
                         android:orientation="vertical"

@@ -1,22 +1,35 @@
 package com.example.bravofront.views.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bravofront.R
 import com.example.bravofront.databinding.CardItemBinding
 import com.example.bravofront.model.ProdutoIndex
+import com.example.bravofront.views.ProductShowActivity
 import com.example.bravofront.views.formatPrice
 import com.squareup.picasso.Picasso
 
-class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
+class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>, val screen:  Int)
     : RecyclerView.Adapter<ProdutoCardRecyclerViewAdapter.ViewHolder>() {
 
-    class ViewHolder (private val binding: CardItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (private val binding: CardItemBinding, private val ctx: Context, private val screen: Int) : RecyclerView.ViewHolder(binding.root) {
         fun bind(produto: ProdutoIndex) {
+
+            binding.root.setOnClickListener {
+                val i = Intent(ctx, ProductShowActivity::class.java)
+                i.putExtra("id", produto.id)
+                i.putExtra("screen", screen)
+                startActivity(ctx, i, null)
+                (ctx as Activity).finish()
+            }
+
             if (produto.nome.length > 10) {
                 val newText = produto.nome.take(10) + "..."
                 binding.cardTitle.text = newText
@@ -47,7 +60,7 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>)
 
         val cardBinding = CardItemBinding.inflate(layoutInflater)
 
-        return ViewHolder(cardBinding, parent.context)
+        return ViewHolder(cardBinding, parent.context, screen)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

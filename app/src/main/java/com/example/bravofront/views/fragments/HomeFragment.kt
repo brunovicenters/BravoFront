@@ -1,5 +1,6 @@
 package com.example.bravofront.views.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.example.bravofront.model.Home
 import com.example.bravofront.model.ProdutoIndex
 import com.example.bravofront.views.adapters.ImagePagerAdapter
 import com.example.bravofront.views.adapters.ProdutoSectionAdapter
+import com.example.bravofront.views.makeToast
 import com.example.bravofront.views.turnOffLoading
 import com.example.bravofront.views.turnOnLoading
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +30,7 @@ import retrofit2.Response
 
 private const val AUTO_SCROLL_DELAY = 2500L
 
-class HomeFragment : Fragment() {
+class HomeFragment(private val ctx: Context) : Fragment() {
 
     private lateinit var binding : FragmentHomeBinding
 
@@ -113,11 +115,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-        adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
-        adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold)
-        adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory)
-        adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory)
-        adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory)
+        adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo, R.id.home)
+        adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold, R.id.home)
+        adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory, R.id.home)
+        adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory, R.id.home)
+        adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory, R.id.home)
 
         binding.recyclePromo.layoutManager = layoutManagerPromo
         binding.recycleMostSold.layoutManager = layoutManagerMostSold
@@ -152,7 +154,7 @@ class HomeFragment : Fragment() {
         autoScrollHandler.removeCallbacks(autoScrollRunnable)
     }
 
-    fun updateProdutos() {
+    private fun updateProdutos() {
         val callback = object : Callback<ApiResponse<Home>> {
             override fun onResponse(call: Call<ApiResponse<Home>>, res: Response<ApiResponse<Home>>) {
                 turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
@@ -171,7 +173,7 @@ class HomeFragment : Fragment() {
                             binding.txtPromo.visibility = View.VISIBLE
                             binding.recyclePromo.visibility = View.VISIBLE
 
-                            adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo)
+                            adapterPromoAdapter = ProdutoSectionAdapter(listPromo, headerPromo, R.id.home)
                             binding.recyclePromo.adapter = adapterPromoAdapter
                             adapterPromoAdapter.notifyDataSetChanged()
                         }
@@ -184,7 +186,7 @@ class HomeFragment : Fragment() {
                             binding.txtMostSelled.visibility = View.VISIBLE
                             binding.recycleMostSold.visibility = View.VISIBLE
 
-                            adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold)
+                            adapterMostSoldAdapter = ProdutoSectionAdapter(listMostSold, headerMostSold, R.id.home)
                             binding.recycleMostSold.adapter = adapterMostSoldAdapter
                             adapterMostSoldAdapter.notifyDataSetChanged()
                         }
@@ -205,7 +207,7 @@ class HomeFragment : Fragment() {
                                 binding.txtFirstCategory.visibility = View.VISIBLE
                                 binding.recycleFirstCategory.visibility = View.VISIBLE
 
-                                adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory)
+                                adapterFirstCategoryAdapter = ProdutoSectionAdapter(listFirstCategory, headerFirstCategory, R.id.home)
                                 binding.recycleFirstCategory.adapter = adapterFirstCategoryAdapter
                                 adapterFirstCategoryAdapter.notifyDataSetChanged()
                             }
@@ -221,7 +223,7 @@ class HomeFragment : Fragment() {
                                 binding.txtSecondCategory.visibility = View.VISIBLE
                                 binding.recycleSecondCategory.visibility = View.VISIBLE
 
-                                adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory)
+                                adapterSecondCategoryAdapter = ProdutoSectionAdapter(listSecondCategory, headerSecondCategory, R.id.home)
                                 binding.recycleSecondCategory.adapter = adapterSecondCategoryAdapter
                                 adapterSecondCategoryAdapter.notifyDataSetChanged()
                             }
@@ -240,7 +242,7 @@ class HomeFragment : Fragment() {
                                 binding.txtThirdCategory.visibility = View.VISIBLE
                                 binding.recycleThirdCategory.visibility = View.VISIBLE
 
-                                adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory)
+                                adapterThirdCategoryAdapter = ProdutoSectionAdapter(listThirdCategory, headerThirdCategory, R.id.home)
                                 binding.recycleThirdCategory.adapter = adapterThirdCategoryAdapter
                                 adapterThirdCategoryAdapter.notifyDataSetChanged()
                             }
@@ -250,11 +252,7 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     if (res.code() == 404 || res.code() == 401) {
-                        Snackbar
-                            .make(binding.containerHome,
-                                getString(R.string.failed_loading_products),
-                                Snackbar.LENGTH_SHORT)
-                            .show()
+                        makeToast(getString(R.string.failed_loading_products), ctx)
 
                         Log.e("ERROR", res.errorBody().toString())
                     }
@@ -264,11 +262,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<ApiResponse<Home>>, t: Throwable) {
                 turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
-                Snackbar
-                    .make(binding.containerHome,
-                    "Não foi possível se conectar ao servidor",
-                    Snackbar.LENGTH_SHORT)
-                    .show()
+                makeToast("Não foi possível se conectar ao servidor", ctx)
 
                 Log.e("ERROR", "Falha ao executar serviço", t)
             }
@@ -288,7 +282,7 @@ class HomeFragment : Fragment() {
     companion object {
         @JvmStatic
 
-        fun newInstance() =
-            HomeFragment()
+        fun newInstance(ctx: Context) =
+            HomeFragment(ctx)
     }
 }

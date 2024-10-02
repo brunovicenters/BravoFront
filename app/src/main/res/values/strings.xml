@@ -58,4 +58,5 @@
     <string name="edit_btn">Botão de edição de perfil</string>
     <string name="config_btn">Botão da página de configurações</string>
     <string name="failed_loading_products">Erro ao carregar os produtos</string>
+    <string name="no_description">Sem descricão.</string>
 </resources>
