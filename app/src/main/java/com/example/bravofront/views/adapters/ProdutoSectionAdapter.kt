@@ -39,8 +39,6 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
                 (ctx as Activity).finish()
             }
 
-            Log.d("HeaderViewHolder", "Binding header product: $produto")
-
             if (produto.nome.length > 20) {
                 val newText = produto.nome.take(20) + "..."
                 binding.cardTitle.text = newText
