@@ -120,6 +120,10 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
                 c: Call<ApiResponse<ProfileShow>>,
                 res: Response<ApiResponse<ProfileShow>>
             ) {
+
+                Log.d("AuthenticateToken", "User: ${ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)}")
+
+
                 if (res.isSuccessful) {
 
                     val apiResponse = res.body()
@@ -163,6 +167,13 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
                     }
 
                 } else {
+                    try {
+                        // Extract the error body and log it
+                        val errorBody = res.errorBody()?.string()
+                        Log.e("ERROR", "Error: $errorBody")
+                    } catch (e: Exception) {
+                        Log.e("ERROR", "Error parsing the error response: ${e.message}")
+                    }
                     makeToast("Erro ao carregar perfil", ctx)
                 }
 

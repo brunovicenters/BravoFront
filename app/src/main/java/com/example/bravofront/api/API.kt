@@ -36,6 +36,7 @@ class API(private val ctx: Context?) {
                 .connectTimeout(timeout, TimeUnit.SECONDS)
                 .readTimeout(timeout, TimeUnit.SECONDS)
                 .writeTimeout(timeout, TimeUnit.SECONDS)
+                .addInterceptor(authenticator)
                 .authenticator(authenticator)
                 .build()
 
