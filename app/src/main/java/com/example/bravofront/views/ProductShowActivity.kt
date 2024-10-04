@@ -1,5 +1,6 @@
 package com.example.bravofront.views
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bravofront.R
 import com.example.bravofront.api.API
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.ActivityProductShowBinding
 import com.example.bravofront.model.*
 import com.example.bravofront.views.adapters.ProductImagesAdapter
@@ -110,7 +112,10 @@ class ProductShowActivity : AppCompatActivity() {
                         val images = product.imagem
                         val alike = data.semelhantes
 
-                        setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, images[0].url, product.nome, product.id))
+                        val user = this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+                        if (user != -1) {
+                            setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, images[0].url, product.nome, product.id))
+                        }
 
                         qtyAvaialable = product.qtd
 

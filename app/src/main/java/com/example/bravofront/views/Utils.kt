@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.model.ProdutoIndex
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -75,6 +76,7 @@ fun EditText.addCpfMask() {
 // Store and get Recently viewed items
 fun setRecentlyViewed(ctx: Context, item: ProdutoIndex) {
     val editor = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE).edit()
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
 
     val gson = Gson()
 
@@ -95,15 +97,16 @@ fun setRecentlyViewed(ctx: Context, item: ProdutoIndex) {
     }
 
     val json = gson.toJson(list.toList())
-    editor.putString("RecentlyViewed",json)
+    editor.putString("RecentlyViewed-$user",json)
     editor.commit()
 }
 
 fun getRecentlyViewed(ctx: Context):List<ProdutoIndex>? {
     val preferences = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE)
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
 
     val gson = Gson()
-    val json = preferences.getString("RecentlyViewed",null)
+    val json = preferences.getString("RecentlyViewed-$user",null)
     val type = object :TypeToken<ArrayList<ProdutoIndex>>(){}.type//converting the json to list
     return gson.fromJson(json,type)//returning the list
 }
