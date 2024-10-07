@@ -54,7 +54,7 @@ class ProductShowActivity : AppCompatActivity() {
             if (txtQty.text.toString().toInt() > 0) {
                 txtQty.text = (txtQty.text.toString().toInt() - 1).toString()
             } else {
-                makeToast("Quantidade máxima atingida", this)
+                makeToast("Quantidade mínima atingida", this)
             }
         }
 
@@ -62,7 +62,7 @@ class ProductShowActivity : AppCompatActivity() {
             if (txtQty.text.toString().toInt() < qtyAvaialable) {
                 txtQty.text = (txtQty.text.toString().toInt() + 1).toString()
             } else {
-                makeToast("Quantidade mínima atingida", this)
+                makeToast("Quantidade máxima atingida", this)
             }
         }
 
