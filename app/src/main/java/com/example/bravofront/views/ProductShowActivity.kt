@@ -15,7 +15,6 @@ import com.example.bravofront.databinding.ActivityProductShowBinding
 import com.example.bravofront.model.*
 import com.example.bravofront.views.adapters.ProductImagesAdapter
 import com.example.bravofront.views.adapters.ProdutoSectionAdapter
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,10 +40,7 @@ class ProductShowActivity : AppCompatActivity() {
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
 
         binding.btnBack.setOnClickListener {
-            val i = Intent(this, MainActivity::class.java)
-            i.putExtra("frag",intent.getIntExtra("screen", R.id.home))
-            startActivity(i)
-            finish()
+            goBack()
         }
 
         val txtQty = binding.txtQuantity
@@ -118,6 +114,10 @@ class ProductShowActivity : AppCompatActivity() {
                         }
 
                         qtyAvaialable = product.qtd
+
+                        if (qtyAvaialable <= 40) {
+                            binding.txtLastUnits.visibility = View.VISIBLE
+                        }
 
                         Picasso.get()
                             .load(images[0].url.trim())
@@ -194,5 +194,18 @@ class ProductShowActivity : AppCompatActivity() {
         API(null).produto.show(intent.getIntExtra("id", -1)).enqueue(callback)
 
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
+    }
+
+    private fun goBack() {
+        val i = Intent(this, MainActivity::class.java)
+        i.putExtra("frag",intent.getIntExtra("screen", R.id.home))
+        startActivity(i)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        onBackPressedDispatcher.onBackPressed()
+
+        goBack()
     }
 }

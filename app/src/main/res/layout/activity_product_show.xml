@@ -114,6 +114,21 @@
                     android:paddingEnd="16dp"/>
 
             <TextView
+                    android:text="*ÚLTIMAS UNIDADES DISPONÍVEIS*"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtLastUnits"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="@color/highlight"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"/>
+
+            <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtPrice"
@@ -198,16 +213,27 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     android:layout_marginEnd="8dp"/>
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                            android:contentDescription="@string/add_to_shopcart"
-                            android:src="@drawable/shopcartwhite"
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:id="@+id/btnAddCart"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"/>
+                            >
+
+                        <ImageView
+                                android:contentDescription="@string/add_to_shopcart"
+                                android:src="@drawable/shopcartwhite"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
