@@ -73,18 +73,4 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
-    override fun onStop() {
-        super.onStop()
-
-        val edit = sp.edit()
-
-        if(!sp.getBoolean("keepLogin", false)) {
-            edit.remove("user")
-            edit.remove("email")
-            edit.remove("password")
-        }
-
-        edit.apply()
-    }
 }
