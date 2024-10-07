@@ -180,7 +180,9 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
             }
 
             override fun onFailure(c: Call<ApiResponse<ProfileShow>>, t: Throwable) {
-                makeToast(getString(R.string.failed_connect_server), ctx)
+                if (isAdded) {
+                    makeToast(getString(R.string.failed_connect_server), ctx)
+                }
 
                 Log.e("ERROR", getString(R.string.failed_execute_server), t)
             }
