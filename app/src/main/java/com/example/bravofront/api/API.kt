@@ -59,4 +59,7 @@ class API(private val ctx: Context?) {
 
     val profile: ProfileAPI
         get() = authRetrofit.create(ProfileAPI::class.java)
+
+    val cart: CartAPI
+        get() = authRetrofit.create(CartAPI::class.java)
 }

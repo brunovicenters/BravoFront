@@ -24,6 +24,7 @@ class ProductShowActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProductShowBinding
     private var qtyAvaialable: Int = 0
+    private var productID: Int = -1
 
     lateinit var adapterImages: ProductImagesAdapter
     val listImages = arrayListOf<Image>()
@@ -63,7 +64,19 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnAddCart.setOnClickListener {
-            makeToast("Not implemented yet", this)
+
+            Log.d("AddToCart", "Product: $productID")
+            if (this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1) == -1 ) {
+                makeToast("Efetue o login para adicionar ao carrinho", this)
+            }
+            else if (txtQty.text.toString().toInt() < 1) {
+                makeToast("Quantidade inválida", this)
+            } else {
+                Log.d("AddToCart", "Will Add")
+
+                addToCart()
+            }
+
         }
 
         binding.btnBuy.setOnClickListener {
@@ -91,7 +104,7 @@ class ProductShowActivity : AppCompatActivity() {
         updateProduct()
     }
 
-    fun updateProduct() {
+    private fun updateProduct() {
 
         val callback = object : Callback<ApiResponse<ProdutoShow>> {
             override fun onResponse(call: Call<ApiResponse<ProdutoShow>>, res: Response<ApiResponse<ProdutoShow>>) {
@@ -105,6 +118,7 @@ class ProductShowActivity : AppCompatActivity() {
                         val data = apiResponse.data
 
                         val product = data.produto
+                        productID = product.id
                         val images = product.imagem
                         val alike = data.semelhantes
 
@@ -194,6 +208,79 @@ class ProductShowActivity : AppCompatActivity() {
         API(null).produto.show(intent.getIntExtra("id", -1)).enqueue(callback)
 
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
+    }
+
+    private fun addToCart() {
+
+        val callback = object : Callback<ApiResponse<CartInsert>> {
+            override fun onResponse(call: Call<ApiResponse<CartInsert>>, res: Response<ApiResponse<CartInsert>>) {
+//                turnOffLoading(null, binding.progressBar, binding.nstProductShow)
+                Log.d("AddToCart", "Responded " + this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1).toString())
+
+                Log.d("AddToCart", productID.toString())
+
+
+                if(res.isSuccessful) {
+                    Log.d("AddToCart", "Successful")
+
+                    val apiResponse = res.body()
+
+                    apiResponse?.let {
+                        val data = apiResponse.data
+
+                        val msg = data.msg
+
+                        when (msg) {
+                            "success" -> {
+                                makeToast("Produto adicionado ao carrinho com sucesso!", this@ProductShowActivity)
+                            }
+                            "invalid qty" -> {
+                                makeToast("Quantidade inválida!", this@ProductShowActivity)
+                            }
+                            "invalid product" -> {
+                                makeToast("Produto inválido!", this@ProductShowActivity)
+                            }
+                            "qty insufficient" -> {
+                                makeToast("Quantidade insuficiente!", this@ProductShowActivity)
+                            }
+                            else -> {
+                                makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
+                            }
+                        }
+
+                        binding.txtQuantity.text = 0.toString()
+                    }
+
+                } else {
+                    Log.d("AddToCart", res.code().toString() + " " + res.message().toString() + " " + res.errorBody().toString())
+
+                    if (res.code() == 404 || res.code() == 401) {
+                        makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
+
+                        Log.e("ERROR", res.errorBody().toString())
+                    }
+                    else if (res.code() == 500) {
+                        makeToast("Falha no servidor! Tente novamente mais tarde", this@ProductShowActivity)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<CartInsert>>, t: Throwable) {
+//                turnOffLoading(null, binding.progressBar, binding.nstProductShow)
+
+                makeToast("Não foi possível se conectar ao servidor", this@ProductShowActivity)
+
+                Log.e("ERROR", "Falha ao executar serviço", t)
+            }
+
+
+        }
+
+        val cir = CartInsertRequest(productID, binding.txtQuantity.text.toString().toInt())
+
+        API(this@ProductShowActivity).cart.store(cir).enqueue(callback)
+
+//        turnOnLoading(null, binding.progressBar, binding.nstProductShow)
     }
 
     private fun goBack() {
