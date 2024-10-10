@@ -67,4 +67,5 @@
     <string name="buy">COMPRAR</string>
     <string name="description">Descrição</string>
     <string name="maybe_like">Você talvez goste também</string>
+    <string name="last_units_available">*ÚLTIMAS UNIDADES DISPONÍVEIS*</string>
 </resources>
