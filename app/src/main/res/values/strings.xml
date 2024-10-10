@@ -68,4 +68,9 @@
     <string name="description">Descrição</string>
     <string name="maybe_like">Você talvez goste também</string>
     <string name="last_units_available">*ÚLTIMAS UNIDADES DISPONÍVEIS*</string>
+    <string name="product_added_cart">Produto adicionado ao carrinho com sucesso!</string>
+    <string name="invalid_qty">Quantidade inválida!</string>
+    <string name="invalid_product">Produto inválido!</string>
+    <string name="insufficient_qty_in_stock">Quantidade insuficiente em estoque!</string>
+    <string name="failed_to_insert_product">Falha ao inserir o produto ao carrinho</string>
 </resources>

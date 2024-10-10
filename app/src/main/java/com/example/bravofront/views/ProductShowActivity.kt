@@ -223,19 +223,19 @@ class ProductShowActivity : AppCompatActivity() {
 
                         when (msg) {
                             "success" -> {
-                                makeToast("Produto adicionado ao carrinho com sucesso!", this@ProductShowActivity)
+                                makeToast(getString(R.string.product_added_cart), this@ProductShowActivity)
                             }
                             "invalid qty" -> {
-                                makeToast("Quantidade inválida!", this@ProductShowActivity)
+                                makeToast(getString(R.string.invalid_qty), this@ProductShowActivity)
                             }
                             "invalid product" -> {
-                                makeToast("Produto inválido!", this@ProductShowActivity)
+                                makeToast(getString(R.string.invalid_product), this@ProductShowActivity)
                             }
                             "qty insufficient" -> {
-                                makeToast("Quantidade insuficiente em estoque!", this@ProductShowActivity)
+                                makeToast(getString(R.string.insufficient_qty_in_stock), this@ProductShowActivity)
                             }
                             else -> {
-                                makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
+                                makeToast(getString(R.string.failed_to_insert_product), this@ProductShowActivity)
                             }
                         }
 
