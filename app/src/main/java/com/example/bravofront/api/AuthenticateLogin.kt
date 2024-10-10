@@ -23,8 +23,6 @@ class AuthenticateToken(private val ctx: Context): Interceptor, Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val prefs = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
-        Log.d("AuthenticateToken", "I'M HERE")
-
         val email = prefs.getString("email", "") as String
         val password = prefs.getString("password", "") as String
 
@@ -32,8 +30,6 @@ class AuthenticateToken(private val ctx: Context): Interceptor, Authenticator {
 
         val resRetrofit = API(null).login.login(loginRequest).execute()
         val user = resRetrofit.body()?.data?.user
-
-        Log.d("AuthenticateToken", user.toString())
 
         if (resRetrofit.isSuccessful && user != null) {
             prefs.edit().putInt("user", user).apply()

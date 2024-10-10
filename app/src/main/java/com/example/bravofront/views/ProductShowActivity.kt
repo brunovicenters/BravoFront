@@ -214,15 +214,7 @@ class ProductShowActivity : AppCompatActivity() {
 
         val callback = object : Callback<ApiResponse<CartInsert>> {
             override fun onResponse(call: Call<ApiResponse<CartInsert>>, res: Response<ApiResponse<CartInsert>>) {
-//                turnOffLoading(null, binding.progressBar, binding.nstProductShow)
-                Log.d("AddToCart", "Responded " + this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1).toString())
-
-                Log.d("AddToCart", productID.toString())
-
-
                 if(res.isSuccessful) {
-                    Log.d("AddToCart", "Successful")
-
                     val apiResponse = res.body()
 
                     apiResponse?.let {
@@ -252,12 +244,8 @@ class ProductShowActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Log.d("AddToCart", res.code().toString() + " " + res.message().toString() + " " + res.errorBody().toString())
-
                     if (res.code() == 404 || res.code() == 401) {
                         makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
-
-                        Log.e("ERROR", res.errorBody().toString())
                     }
                     else if (res.code() == 500) {
                         makeToast("Falha no servidor! Tente novamente mais tarde", this@ProductShowActivity)
@@ -266,21 +254,17 @@ class ProductShowActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ApiResponse<CartInsert>>, t: Throwable) {
-//                turnOffLoading(null, binding.progressBar, binding.nstProductShow)
+                turnOffLoading(null, binding.progressBar, binding.nstProductShow)
 
                 makeToast("Não foi possível se conectar ao servidor", this@ProductShowActivity)
 
                 Log.e("ERROR", "Falha ao executar serviço", t)
             }
-
-
         }
 
         val cir = CartInsertRequest(productID, binding.txtQuantity.text.toString().toInt())
 
         API(this@ProductShowActivity).cart.store(cir).enqueue(callback)
-
-//        turnOnLoading(null, binding.progressBar, binding.nstProductShow)
     }
 
     private fun goBack() {
