@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.bravofront.R
 import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.ActivityMainBinding
-import com.example.bravofront.views.fragments.HomeFragment
-import com.example.bravofront.views.fragments.LoggedProfileFragment
-import com.example.bravofront.views.fragments.SearchFragment
-import com.example.bravofront.views.fragments.UnLoggedProfileFragment
+import com.example.bravofront.views.fragments.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,17 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavView.selectedItemId = currentFrag
 
-        frag = when (currentFrag) {
-            R.id.search -> SearchFragment.newInstance("", "")
-            R.id.profile -> {
-                if (sp.getInt("user", -1) != -1) {
-                    LoggedProfileFragment.newInstance(this)
-                } else {
-                    UnLoggedProfileFragment.newInstance(this)
-                }
-            }
-            else -> HomeFragment.newInstance(this)
-        }
+        changeScreen(currentFrag)
 
         supportFragmentManager
             .beginTransaction()
@@ -54,23 +41,28 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         binding.bottomNavView.setOnItemSelectedListener {
-            frag = when (it.itemId) {
-                R.id.search -> SearchFragment.newInstance("", "")
-                R.id.profile -> {
-                    if (sp.getString("email", "") != "" && sp.getString("password", "") != "") {
-                        LoggedProfileFragment.newInstance(this)
-                    } else {
-                        UnLoggedProfileFragment.newInstance(this)
-                    }
-                }
-                else -> HomeFragment.newInstance(this)
-            }
+            changeScreen(it.itemId)
 
             supportFragmentManager
                 .beginTransaction()
                 .replace(binding.fragContainer.id, frag)
                 .commit()
             true
+        }
+    }
+
+    private fun changeScreen(screen: Int) {
+        frag = when (screen) {
+            R.id.search -> SearchFragment.newInstance("", "")
+            R.id.profile -> {
+                if (sp.getString("email", "") != "" && sp.getString("password", "") != "") {
+                    LoggedProfileFragment.newInstance(this)
+                } else {
+                    UnLoggedProfileFragment.newInstance(this)
+                }
+            }
+            R.id.shopcart -> ShopCartFragment.newInstance()
+            else -> HomeFragment.newInstance(this)
         }
     }
 }
