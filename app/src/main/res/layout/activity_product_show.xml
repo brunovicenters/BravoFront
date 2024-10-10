@@ -114,7 +114,7 @@
                     android:paddingEnd="16dp"/>
 
             <TextView
-                    android:text="*ÚLTIMAS UNIDADES DISPONÍVEIS*"
+                    android:text="@string/last_units_available"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtLastUnits"
