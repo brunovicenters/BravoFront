@@ -73,4 +73,12 @@
     <string name="invalid_product">Produto inválido!</string>
     <string name="insufficient_qty_in_stock">Quantidade insuficiente em estoque!</string>
     <string name="failed_to_insert_product">Falha ao inserir o produto ao carrinho</string>
+    <string name="min_qty_reached">Quantidade mínima atingida</string>
+    <string name="max_qty_reached">Quantidade máxima atingida</string>
+    <string name="login_to_add_to_cart">Efetue o login para adicionar ao carrinho</string>
+    <string name="login_to_buy">Efetue o login para comprar</string>
+    <string name="failed_to_insert_product_to_cart">Falha ao inserir o produto ao carrinho</string>
+    <string name="server_failed">Falha no servidor! Tente novamente mais tarde</string>
+    <string name="cant_connect_to_server">Não foi possível se conectar ao servidor</string>
+    <string name="failed_execute_service">Falha ao executar serviço</string>
 </resources>

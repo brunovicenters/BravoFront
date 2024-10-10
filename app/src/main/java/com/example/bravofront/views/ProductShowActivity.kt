@@ -55,7 +55,7 @@ class ProductShowActivity : AppCompatActivity() {
             if (txtQty.text.toString().toInt() > 0) {
                 txtQty.text = (txtQty.text.toString().toInt() - 1).toString()
             } else {
-                makeToast("Quantidade mínima atingida", this)
+                makeToast(getString(R.string.min_qty_reached), this)
             }
         }
 
@@ -63,16 +63,16 @@ class ProductShowActivity : AppCompatActivity() {
             if (txtQty.text.toString().toInt() < qtyAvaialable) {
                 txtQty.text = (txtQty.text.toString().toInt() + 1).toString()
             } else {
-                makeToast("Quantidade máxima atingida", this)
+                makeToast(getString(R.string.max_qty_reached), this)
             }
         }
 
         binding.btnAddCart.setOnClickListener {
             if (spLogin.getInt("user", -1) == -1 ) {
-                makeToast("Efetue o login para adicionar ao carrinho", this)
+                makeToast(getString(R.string.login_to_add_to_cart), this)
             }
             else if (txtQty.text.toString().toInt() < 1) {
-                makeToast("Quantidade inválida", this)
+                makeToast(getString(R.string.invalid_qty), this)
             } else {
                 addToCart()
             }
@@ -80,7 +80,14 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnBuy.setOnClickListener {
-            makeToast("Not implemented yet", this)
+            if (spLogin.getInt("user", -1) == -1 ) {
+                makeToast(getString(R.string.login_to_buy), this)
+            }
+            else if (txtQty.text.toString().toInt() < 1) {
+                makeToast(getString(R.string.invalid_qty), this)
+            } else {
+                addToCart(buy = true)
+            }
         }
 
         val layoutManagerAlike = GridLayoutManager(this, 2)
@@ -209,7 +216,7 @@ class ProductShowActivity : AppCompatActivity() {
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
     }
 
-    private fun addToCart() {
+    private fun addToCart(buy: Boolean = false) {
 
         val callback = object : Callback<ApiResponse<CartInsert>> {
             override fun onResponse(call: Call<ApiResponse<CartInsert>>, res: Response<ApiResponse<CartInsert>>) {
@@ -240,14 +247,21 @@ class ProductShowActivity : AppCompatActivity() {
                         }
 
                         binding.txtQuantity.text = 0.toString()
+
+                        if (buy) {
+                            val i = Intent(this@ProductShowActivity, MainActivity::class.java)
+                            i.putExtra("frag", R.id.shopcart)
+                            startActivity(i)
+                            finish()
+                        }
                     }
 
                 } else {
                     if (res.code() == 404 || res.code() == 401) {
-                        makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
+                        makeToast(getString(R.string.failed_to_insert_product_to_cart), this@ProductShowActivity)
                     }
                     else if (res.code() == 500) {
-                        makeToast("Falha no servidor! Tente novamente mais tarde", this@ProductShowActivity)
+                        makeToast(getString(R.string.server_failed), this@ProductShowActivity)
                     }
                 }
             }
@@ -255,9 +269,9 @@ class ProductShowActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ApiResponse<CartInsert>>, t: Throwable) {
                 turnOffLoading(null, binding.progressBar, binding.nstProductShow)
 
-                makeToast("Não foi possível se conectar ao servidor", this@ProductShowActivity)
+                makeToast(getString(R.string.cant_connect_to_server), this@ProductShowActivity)
 
-                Log.e("ERROR", "Falha ao executar serviço", t)
+                Log.e("ERROR", getString(R.string.failed_execute_service), t)
             }
         }
 
