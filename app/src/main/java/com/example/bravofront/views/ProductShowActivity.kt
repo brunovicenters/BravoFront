@@ -2,6 +2,7 @@ package com.example.bravofront.views
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,7 @@ import retrofit2.Response
 class ProductShowActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProductShowBinding
+    lateinit var spLogin: SharedPreferences
     private var qtyAvaialable: Int = 0
     private var productID: Int = -1
 
@@ -39,6 +41,8 @@ class ProductShowActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
+
+        spLogin = this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
 
         binding.btnBack.setOnClickListener {
             goBack()
@@ -64,16 +68,12 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnAddCart.setOnClickListener {
-
-            Log.d("AddToCart", "Product: $productID")
-            if (this.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1) == -1 ) {
+            if (spLogin.getInt("user", -1) == -1 ) {
                 makeToast("Efetue o login para adicionar ao carrinho", this)
             }
             else if (txtQty.text.toString().toInt() < 1) {
                 makeToast("Quantidade inválida", this)
             } else {
-                Log.d("AddToCart", "Will Add")
-
                 addToCart()
             }
 
@@ -198,11 +198,13 @@ class ProductShowActivity : AppCompatActivity() {
 
                 Log.e("ERROR", "Falha ao executar serviço", t)
             }
-
-
         }
 
-        API(null).produto.show(intent.getIntExtra("id", -1)).enqueue(callback)
+        var user: Int? = null
+        if (spLogin.getInt("user", -1) != -1) {
+            user = spLogin.getInt("user", -1)
+        }
+        API(null).produto.show(intent.getIntExtra("id", -1), user).enqueue(callback)
 
         turnOnLoading(null, binding.progressBar, binding.nstProductShow)
     }
@@ -230,7 +232,7 @@ class ProductShowActivity : AppCompatActivity() {
                                 makeToast("Produto inválido!", this@ProductShowActivity)
                             }
                             "qty insufficient" -> {
-                                makeToast("Quantidade insuficiente!", this@ProductShowActivity)
+                                makeToast("Quantidade insuficiente em estoque!", this@ProductShowActivity)
                             }
                             else -> {
                                 makeToast("Falha ao inserir o produto ao carrinho", this@ProductShowActivity)
