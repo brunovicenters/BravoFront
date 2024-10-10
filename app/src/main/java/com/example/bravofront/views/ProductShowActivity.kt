@@ -168,9 +168,6 @@ class ProductShowActivity : AppCompatActivity() {
 
 
                         if (!alike.isNullOrEmpty()) {
-
-                            Log.d("alike", alike.toString())
-
                             listAlike.clear()
                             listAlike.addAll(alike)
                             headerAlike = alike[0]
