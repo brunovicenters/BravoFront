@@ -84,8 +84,9 @@ fun setRecentlyViewed(ctx: Context, item: ProdutoIndex) {
     if (list == null) {
         list = mutableListOf(item)
     } else {
-        if(list.indexOf(item) > -1) {
-            list.remove(item)
+        val itemId = item.id
+        if (list.indexOfFirst { it.id == itemId } > -1) {
+            list.removeAt(list.indexOfFirst { it.id == itemId })
             list.add(0, item)
         } else {
             list.add(0, item)
