@@ -8,5 +8,5 @@ data class ProdutoDetalhe(
     val categoria: String,
     val qtd: Int,
     val desc: String?,
-    val imagem: List<Image>
+    val imagem: List<Image>?
 )

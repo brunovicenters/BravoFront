@@ -23,16 +23,20 @@ class ProductImagesAdapter(private val list: List<Image>, private val mainImg: I
         fun bind(img: Image) {
 
             binding.root.setOnClickListener {
+                if (img.url != "") {
+                    Picasso.get()
+                        .load(img.url.trim())
+                        .error(R.drawable.no_car_img)
+                        .into(mainImg)
+                }
+            }
+
+            if (img.url != "") {
                 Picasso.get()
                     .load(img.url.trim())
                     .error(R.drawable.no_car_img)
-                    .into(mainImg)
+                    .into(binding.imgProductCarousel)
             }
-
-            Picasso.get()
-                .load(img.url.trim())
-                .error(R.drawable.no_car_img)
-                .into(binding.imgProductCarousel)
         }
     }
 

@@ -47,10 +47,12 @@ class ProdutoCardRecyclerViewAdapter(private val list: List<ProdutoIndex>, val s
                 binding.cardOldPrice.visibility = View.GONE
             }
 
-            Picasso.get()
-                .load(produto.imagem?.trim())
-                .error(R.drawable.no_car_img)
-                .into(binding.imgProduct)
+            if (!(produto.imagem == null || produto.imagem == "")) {
+                Picasso.get()
+                    .load(produto.imagem.trim())
+                    .error(R.drawable.no_car_img)
+                    .into(binding.imgProduct)
+            }
 
         }
     }

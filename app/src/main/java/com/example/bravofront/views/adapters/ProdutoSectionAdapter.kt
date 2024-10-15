@@ -56,10 +56,12 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
                 binding.cardOldPrice.visibility = View.GONE
             }
 
-            Picasso.get()
-                .load(produto.imagem?.trim())
-                .error(R.drawable.no_car_img)
-                .into(binding.imgProduct)
+            if (!(produto.imagem == null || produto.imagem == "")) {
+                Picasso.get()
+                    .load(produto.imagem.trim())
+                    .error(R.drawable.no_car_img)
+                    .into(binding.imgProduct)
+            }
         }
     }
 
@@ -91,11 +93,12 @@ class ProdutoSectionAdapter(private val produtos: List<ProdutoIndex>, private va
                 binding.cardOldPrice.visibility = View.GONE
             }
 
-            Picasso.get()
-                .load(produto.imagem?.trim())
-                .error(R.drawable.no_car_img)
-                .into(binding.imgProduct)
-
+            if (!(produto.imagem == null || produto.imagem == "")) {
+                Picasso.get()
+                    .load(produto.imagem.trim())
+                    .error(R.drawable.no_car_img)
+                    .into(binding.imgProduct)
+            }
         }
     }
 

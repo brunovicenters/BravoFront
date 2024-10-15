@@ -131,7 +131,11 @@ class ProductShowActivity : AppCompatActivity() {
 
                         val user = this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
                         if (user != -1) {
-                            setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, images[0].url, product.nome, product.id))
+                            var img: String? = null
+                            if (!(images.isNullOrEmpty())) {
+                                img = images[0].url
+                            }
+                            setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, img, product.nome, product.id))
                         }
 
                         qtyAvaialable = product.qtd
@@ -141,9 +145,10 @@ class ProductShowActivity : AppCompatActivity() {
                         }
 
                         Picasso.get()
-                            .load(images[0].url.trim())
+                            .load(images?.get(0)?.url?.trim())
                             .error(R.drawable.no_car_img)
                             .into(binding.imgProduct)
+
 
                         binding.txtNameProduct.text = product.nome
                         binding.txtCategory.text = product.categoria
@@ -164,7 +169,7 @@ class ProductShowActivity : AppCompatActivity() {
                             binding.txtDescription.text = getString(R.string.no_description)
                         }
 
-                        if (images.isNotEmpty()) {
+                        if (!images.isNullOrEmpty()) {
                             listImages.clear()
                             listImages.addAll(images)
                             adapterImages.notifyDataSetChanged()
