@@ -111,3 +111,18 @@ fun getRecentlyViewed(ctx: Context):List<ProdutoIndex>? {
     val type = object :TypeToken<ArrayList<ProdutoIndex>>(){}.type//converting the json to list
     return gson.fromJson(json,type)//returning the list
 }
+
+fun removeRecentlyViewed(ctx: Context, item: Int) {
+    val editor = ctx.getSharedPreferences("ProfileShow", Context.MODE_PRIVATE).edit()
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+
+    val list = getRecentlyViewed(ctx)?.toMutableList()
+    if (list != null) {
+        if (list.indexOfFirst { it.id == item } > -1) {
+            list.removeAt(list.indexOfFirst { it.id == item })
+        }
+        val json = Gson().toJson(list.toList())
+        editor.putString("RecentlyViewed-$user",json)
+        editor.commit()
+    }
+}

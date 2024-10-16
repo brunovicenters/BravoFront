@@ -27,6 +27,7 @@ class ProductShowActivity : AppCompatActivity() {
     lateinit var spLogin: SharedPreferences
     private var qtyAvaialable: Int = 0
     private var productID: Int = -1
+    private var failed: Boolean = false
 
     lateinit var adapterImages: ProductImagesAdapter
     val listImages = arrayListOf<Image>()
@@ -123,87 +124,102 @@ class ProductShowActivity : AppCompatActivity() {
 
                     val apiResponse = res.body()
 
+                    Log.d("SUCCESS", "Prod Null 1")
+
                     apiResponse?.let {
                         val data = apiResponse.data
 
-                        val product = data.produto
-                        productID = product.id
-                        val images = product.imagem
-                        val alike = data.semelhantes
+                        if (data.produto == null) {
 
-                        val user = this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
-                        if (user != -1) {
-                            var img: String? = null
-                            if (!(images.isNullOrEmpty())) {
-                                img = images[0].url
+                            Log.d("SUCCESS", "Prod Null 2")
+                            removeRecentlyViewed(this@ProductShowActivity, intent.getIntExtra("id", -1))
+                            makeToast("Produto inválido ou inexistente!", this@ProductShowActivity)
+
+                            failed = true
+                            failedProduct()
+
+                        } else {
+                            Log.d("ERROR", "Prod Valid")
+                            val product = data.produto
+                            productID = product.id
+                            val images = product.imagem
+                            val alike = data.semelhantes
+
+                            val user = this@ProductShowActivity.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+                            if (user != -1) {
+                                var img: String? = null
+                                if (!(images.isNullOrEmpty())) {
+                                    img = images[0].url
+                                }
+                                setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, img, product.nome, product.id))
                             }
-                            setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, img, product.nome, product.id))
-                        }
 
-                        qtyAvaialable = product.qtdDisponivel
+                            qtyAvaialable = product.qtdDisponivel
 
-                        if (qtyAvaialable <= 40 && product.qtd > 0) {
-                            binding.txtLastUnits.visibility = View.VISIBLE
-                        }
+                            if (qtyAvaialable <= 40 && product.qtd > 0) {
+                                binding.txtLastUnits.visibility = View.VISIBLE
+                            }
 
-                        if (qtyAvaialable <= 0) {
-                            binding.txtProductUnavailable.visibility = View.VISIBLE
-                            binding.btnBuy.visibility = View.GONE
-                            binding.cvAddToCart.visibility = View.GONE
-                        }
+                            if (qtyAvaialable <= 0) {
+                                binding.txtProductUnavailable.visibility = View.VISIBLE
+                                binding.btnBuy.visibility = View.GONE
+                                binding.cvAddToCart.visibility = View.GONE
+                            }
 
-                        if (images?.get(0)?.url?.trim() != null && images.get(0).url.trim() != "") {
-                            Picasso.get()
-                                .load(images[0].url.trim())
-                                .error(R.drawable.no_car_img)
-                                .into(binding.imgProduct)
-                        }
+                            if (images?.get(0)?.url?.trim() != null && images.get(0).url.trim() != "") {
+                                Picasso.get()
+                                    .load(images[0].url.trim())
+                                    .error(R.drawable.no_car_img)
+                                    .into(binding.imgProduct)
+                            }
 
-                        binding.txtNameProduct.text = product.nome
-                        binding.txtCategory.text = product.categoria
+                            binding.txtNameProduct.text = product.nome
+                            binding.txtCategory.text = product.categoria
 
-                        if(product.desconto != null && product.desconto.toDouble() > 0.0) {
-                            val newPrice = (product.preco.toDouble()) - (product.desconto.toDouble())
-                            binding.txtPrice.text = formatPrice(newPrice, this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
-                            binding.txtDiscount.text = formatPrice(product.preco.toDouble(), this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
-                            binding.txtDiscount.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                        } else {
-                            binding.txtPrice.text = formatPrice(product.preco.toDouble(), this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
-                            binding.txtDiscount.visibility = View.GONE
-                        }
+                            if(product.desconto != null && product.desconto.toDouble() > 0.0) {
+                                val newPrice = (product.preco.toDouble()) - (product.desconto.toDouble())
+                                binding.txtPrice.text = formatPrice(newPrice, this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
+                                binding.txtDiscount.text = formatPrice(product.preco.toDouble(), this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
+                                binding.txtDiscount.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                            } else {
+                                binding.txtPrice.text = formatPrice(product.preco.toDouble(), this@ProductShowActivity.getString(R.string.country_currency), this@ProductShowActivity.getString(R.string.language_currency))
+                                binding.txtDiscount.visibility = View.GONE
+                            }
 
-                        if(product.desc != null) {
-                            binding.txtDescription.text = product.desc
-                        } else {
-                            binding.txtDescription.text = getString(R.string.no_description)
-                        }
+                            if(product.desc != null) {
+                                binding.txtDescription.text = product.desc
+                            } else {
+                                binding.txtDescription.text = getString(R.string.no_description)
+                            }
 
-                        if (!images.isNullOrEmpty()) {
-                            listImages.clear()
-                            listImages.addAll(images)
-                            adapterImages.notifyDataSetChanged()
-                        } else {
-                            binding.rvProductImages.visibility = View.GONE
-                        }
+                            if (!images.isNullOrEmpty()) {
+                                listImages.clear()
+                                listImages.addAll(images)
+                                adapterImages.notifyDataSetChanged()
+                            } else {
+                                binding.rvProductImages.visibility = View.GONE
+                            }
 
 
 
-                        if (!alike.isNullOrEmpty()) {
-                            listAlike.clear()
-                            listAlike.addAll(alike)
-                            headerAlike = alike[0]
+                            if (!alike.isNullOrEmpty()) {
+                                listAlike.clear()
+                                listAlike.addAll(alike)
+                                headerAlike = alike[0]
 
-                            binding.rvAlike.visibility = View.VISIBLE
-                            binding.txtAlike.visibility = View.VISIBLE
+                                binding.rvAlike.visibility = View.VISIBLE
+                                binding.txtAlike.visibility = View.VISIBLE
 
-                            adapterAlike = ProdutoSectionAdapter(listAlike, headerAlike, null)
-                            binding.rvAlike.adapter = adapterAlike
+                                adapterAlike = ProdutoSectionAdapter(listAlike, headerAlike, null)
+                                binding.rvAlike.adapter = adapterAlike
 
-                            adapterAlike.notifyDataSetChanged()
+                                adapterAlike.notifyDataSetChanged()
+                            }
                         }
                     }
 
                 } else {
+                    Log.e("ERROR", res.errorBody().toString())
                     if (res.code() == 404 || res.code() == 401) {
                         makeToast("Falha ao carregar o produto", this@ProductShowActivity)
 
@@ -299,6 +315,16 @@ class ProductShowActivity : AppCompatActivity() {
         i.putExtra("frag",intent.getIntExtra("screen", R.id.home))
         startActivity(i)
         finish()
+    }
+
+    private fun failedProduct() {
+        if (failed) {
+            val i = Intent(this, MainActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            i.putExtra("frag",intent.getIntExtra("screen", R.id.home))
+            startActivity(i)
+            finish()
+        }
     }
 
     override fun onBackPressed() {
