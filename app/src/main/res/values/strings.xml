@@ -81,4 +81,7 @@
     <string name="server_failed">Falha no servidor! Tente novamente mais tarde</string>
     <string name="cant_connect_to_server">Não foi possível se conectar ao servidor</string>
     <string name="failed_execute_service">Falha ao executar serviço</string>
+    <string name="qty">Quantidade</string>
+    <string name="price">Preço</string>
+    <string name="product_unavailable">Produto indisponível</string>
 </resources>

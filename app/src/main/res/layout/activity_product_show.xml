@@ -90,6 +90,18 @@
                     android:layout_marginEnd="16dp"/>
 
             <TextView
+                    android:text="*Produto fora de estoque!*"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtProductUnavailable"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/main"
+                    tools:visibility="visible"
+                    android:visibility="gone"/>
+
+            <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtNameProduct"
@@ -157,7 +169,8 @@
                     app:cardCornerRadius="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/cvAddToCart">
 
                 <LinearLayout
                         android:orientation="vertical"
@@ -251,7 +264,8 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginEnd="16dp"
+                    />
 
             <TextView
                     android:text="@string/description"

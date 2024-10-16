@@ -68,10 +68,11 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnAddCart.setOnClickListener {
-            if (spLogin.getInt("user", -1) == -1 ) {
+            if (spLogin.getInt("user", -1) == -1) {
                 makeToast(getString(R.string.login_to_add_to_cart), this)
-            }
-            else if (txtQty.text.toString().toInt() < 1) {
+            } else if (qtyAvaialable <= 0) {
+                makeToast(getString(R.string.product_unavailable), this)
+            } else if (txtQty.text.toString().toInt() < 1) {
                 makeToast(getString(R.string.invalid_qty), this)
             } else {
                 addToCart()
@@ -82,8 +83,9 @@ class ProductShowActivity : AppCompatActivity() {
         binding.btnBuy.setOnClickListener {
             if (spLogin.getInt("user", -1) == -1 ) {
                 makeToast(getString(R.string.login_to_buy), this)
-            }
-            else if (txtQty.text.toString().toInt() < 1) {
+            } else if (qtyAvaialable <= 0) {
+                makeToast(getString(R.string.product_unavailable), this)
+            } else if (txtQty.text.toString().toInt() < 1) {
                 makeToast(getString(R.string.invalid_qty), this)
             } else {
                 addToCart(buy = true)
@@ -138,17 +140,24 @@ class ProductShowActivity : AppCompatActivity() {
                             setRecentlyViewed(this@ProductShowActivity, ProdutoIndex(product.preco, product.desconto, img, product.nome, product.id))
                         }
 
-                        qtyAvaialable = product.qtd
+                        qtyAvaialable = product.qtdDisponivel
 
-                        if (qtyAvaialable <= 40) {
+                        if (qtyAvaialable <= 40 && product.qtd > 0) {
                             binding.txtLastUnits.visibility = View.VISIBLE
                         }
 
-                        Picasso.get()
-                            .load(images?.get(0)?.url?.trim())
-                            .error(R.drawable.no_car_img)
-                            .into(binding.imgProduct)
+                        if (qtyAvaialable <= 0) {
+                            binding.txtProductUnavailable.visibility = View.VISIBLE
+                            binding.btnBuy.visibility = View.GONE
+                            binding.cvAddToCart.visibility = View.GONE
+                        }
 
+                        if (images?.get(0)?.url?.trim() != null && images.get(0).url.trim() != "") {
+                            Picasso.get()
+                                .load(images[0].url.trim())
+                                .error(R.drawable.no_car_img)
+                                .into(binding.imgProduct)
+                        }
 
                         binding.txtNameProduct.text = product.nome
                         binding.txtCategory.text = product.categoria
