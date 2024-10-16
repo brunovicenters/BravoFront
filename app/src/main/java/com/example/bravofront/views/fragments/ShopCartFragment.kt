@@ -6,26 +6,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bravofront.R
+import com.example.bravofront.databinding.FragmentShopCartBinding
+import com.example.bravofront.model.CartItem
+import com.example.bravofront.views.adapters.ShopCartAdapter
+import com.example.bravofront.views.turnOnLoading
 
 class ShopCartFragment : Fragment() {
+
+    lateinit var binding: FragmentShopCartBinding
+
+    lateinit var shopCartAdapter: ShopCartAdapter
+    val listShopCart = arrayListOf<CartItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop_cart, container, false)
+    ): View {
+        binding = FragmentShopCartBinding.inflate(inflater, container, false)
+
+//        turnOnLoading()
+
+        return binding.root
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
             ShopCartFragment()
-//                .apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
     }
 }
