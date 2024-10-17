@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.bravofront.api.ARQUIVO_LOGIN
+import com.example.bravofront.model.CartItem
 import com.example.bravofront.model.ProdutoIndex
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -124,5 +125,48 @@ fun removeRecentlyViewed(ctx: Context, item: Int) {
         val json = Gson().toJson(list.toList())
         editor.putString("RecentlyViewed-$user",json)
         editor.commit()
+    }
+}
+
+fun getFinalCart(ctx: Context):List<CartItem>? {
+    val preferences = ctx.getSharedPreferences("ITEMS_BUY", Context.MODE_PRIVATE)
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+
+    val gson = Gson()
+    val json = preferences.getString("ITEMS_BUY-$user",null)
+    val type = object :TypeToken<ArrayList<CartItem>>(){}.type//converting the json to list
+    return gson.fromJson(json,type)//returning the list
+}
+
+fun addToFinalCart(ctx: Context, item: CartItem) {
+    val editor = ctx.getSharedPreferences("ITEMS_BUY", Context.MODE_PRIVATE).edit()
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+
+    val gson = Gson()
+    var list = getFinalCart(ctx)?.toMutableList()
+    if (list == null) {
+        list = mutableListOf(item)
+    } else {
+        if (list.indexOfFirst { it.id == item.id } > -1) {
+            list.removeAt(list.indexOfFirst { it.id == item.id })
+        }
+        list.add(0, item)
+    }
+
+    val json = Gson().toJson(list.toList())
+    editor.putString("ITEMS_BUY-$user",json)
+}
+
+fun removeFromFinalCart(ctx: Context, item: Int) {
+    val editor = ctx.getSharedPreferences("ITEMS_BUY", Context.MODE_PRIVATE).edit()
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+
+    val list = getFinalCart(ctx)?.toMutableList()
+    if (list != null) {
+        if (list.indexOfFirst { it.id == item } > -1) {
+            list.removeAt(list.indexOfFirst { it.id == item })
+        }
+        val json = Gson().toJson(list.toList())
+        editor.putString("ITEMS_BUY-$user",json)
     }
 }
