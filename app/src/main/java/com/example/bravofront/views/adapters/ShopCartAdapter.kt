@@ -1,6 +1,8 @@
 package com.example.bravofront.views.adapters
 
 import android.content.Context
+import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +10,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bravofront.R
+import com.example.bravofront.api.API
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.ShopcartItemBinding
-import com.example.bravofront.model.CartItem
+import com.example.bravofront.model.*
 import com.example.bravofront.views.*
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Context): RecyclerView.Adapter<ShopCartAdapter.ViewHolder>() {
 
@@ -59,7 +66,7 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
 
             val itensSpinner = IntArray(item.stock) { it + 1 }.toList()
 
-            val adapterSpinner = ArrayAdapter(ctx, android.R.layout.simple_spinner_item, itensSpinner)
+            val adapterSpinner = ArrayAdapter(ctx, R.layout.spinner_item_layout, itensSpinner)
 
             adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -71,10 +78,43 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
                     binding.txtOutOfStock.visibility = View.GONE
-                    binding
 
-                    //TODO:
-                    // Retrofit update request
+                    val callback = object : Callback<ApiResponse<CartUpdate>> {
+                        override fun onResponse(call: Call<ApiResponse<CartUpdate>>, res: Response<ApiResponse<CartUpdate>>) {
+
+                            if(res.isSuccessful) {
+
+                                val apiResponse = res.body()
+
+                                apiResponse?.let {
+                                    val data = apiResponse.data
+
+                                    makeToast(data.msg, ctx)
+
+//                                    binding.spinner.setSelection(position, true)
+
+                                    //TODO: Fix new Quantity
+                                    addToFinalCart(ctx, item)
+                                }
+                            } else {
+                                Log.e("ERROR", res.errorBody().toString())
+                                if (res.code() == 404 || res.code() == 401) {
+                                    makeToast("Falha ao carregar o produto", ctx)
+
+                                    Log.e("ERROR", res.errorBody().toString())
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ApiResponse<CartUpdate>>, t: Throwable) {
+
+                            makeToast("Não foi possível se conectar ao servidor", ctx)
+
+                            Log.e("ERROR", "Falha ao executar serviço", t)
+                        }
+                    }
+
+                    API(ctx).cart.update(CartUpdateRequest(item.id, itensSpinner[position]), itensSpinner[position]).enqueue(callback)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {

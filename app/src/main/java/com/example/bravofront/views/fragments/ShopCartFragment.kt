@@ -1,15 +1,26 @@
 package com.example.bravofront.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bravofront.R
+import com.example.bravofront.api.API
 import com.example.bravofront.databinding.FragmentShopCartBinding
+import com.example.bravofront.model.ApiResponse
+import com.example.bravofront.model.CartIndex
 import com.example.bravofront.model.CartItem
 import com.example.bravofront.views.adapters.ShopCartAdapter
+import com.example.bravofront.views.getFinalCart
+import com.example.bravofront.views.makeToast
+import com.example.bravofront.views.turnOffLoading
 import com.example.bravofront.views.turnOnLoading
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ShopCartFragment : Fragment() {
 
@@ -24,9 +35,71 @@ class ShopCartFragment : Fragment() {
     ): View {
         binding = FragmentShopCartBinding.inflate(inflater, container, false)
 
-//        turnOnLoading()
+        turnOnLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
+
+        binding.btnBuyShopCart.setOnClickListener {
+            if (getFinalCart(requireContext()) != null) {
+                makeToast("You need to select at least one product", requireContext())
+                return@setOnClickListener
+            }
+            makeToast("Not implemented yet", requireContext())
+        }
+
+        binding.swpRefresh.setOnRefreshListener {
+            updateCart()
+        }
+
+        binding.rvCartItems.layoutManager = LinearLayoutManager(requireContext())
+
+        shopCartAdapter = ShopCartAdapter(listShopCart, requireContext())
+
+        binding.rvCartItems.adapter = shopCartAdapter
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateCart()
+    }
+
+    fun updateCart() {
+
+        val callback = object : Callback<ApiResponse<CartIndex>> {
+            override fun onResponse(call: Call<ApiResponse<CartIndex>>, res: Response<ApiResponse<CartIndex>>) {
+                turnOffLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
+
+                if (res.isSuccessful) {
+
+                    val apiResponse = res.body()
+
+                    apiResponse?.let {
+
+                        listShopCart.clear()
+                        listShopCart.addAll(it.data.carrinho)
+
+                        shopCartAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    Log.e("ERROR", res.errorBody().toString())
+                    if (res.code() == 404 || res.code() == 401) {
+                        makeToast("Falha ao carregar o carrinho", requireContext())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<CartIndex>>, t: Throwable) {
+                turnOffLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
+
+                makeToast("Não foi possível se conectar ao servidor", requireContext())
+
+                Log.e("ERROR", "Falha ao executar serviço", t)
+            }
+        }
+
+        API(requireContext()).cart.index().enqueue(callback)
+        turnOnLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
+
     }
 
     companion object {
