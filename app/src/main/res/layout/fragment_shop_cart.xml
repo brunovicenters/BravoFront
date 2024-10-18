@@ -73,21 +73,20 @@
                  </androidx.core.widget.NestedScrollView>
 
 
-                <Button
-                        android:text="@string/buy"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btnBuyShopCart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginEnd="32dp"
-                        android:textColor="@color/negative"
-                        android:fontFamily="@font/federant"
-                        android:backgroundTint="@color/disabled"
-                        android:textSize="16sp"/>
+                 <Button
+                         android:text="@string/buy"
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content"
+                         android:id="@+id/btnBuyShopCart"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         android:layout_marginBottom="16dp"
+                         android:layout_marginStart="32dp"
+                         android:layout_marginEnd="32dp"
+                         android:textColor="@color/white"
+                         android:fontFamily="@font/federant"
+                         android:textSize="16sp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
