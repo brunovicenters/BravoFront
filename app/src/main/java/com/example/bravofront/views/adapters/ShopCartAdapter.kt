@@ -25,6 +25,8 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
     class ViewHolder (private val binding: ShopcartItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartItem) {
 
+            var changed = 0
+
             val finalCart = getFinalCart(ctx)
 
             if (item.changedQty) {
@@ -91,10 +93,17 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
 
                                     makeToast(data.msg, ctx)
 
-//                                    binding.spinner.setSelection(position, true)
-
-                                    //TODO: Fix new Quantity
-                                    addToFinalCart(ctx, item)
+                                    addToFinalCart(ctx,
+                                            CartItem(
+                                                    item.id,
+                                                    item.name,
+                                                    itensSpinner[position],
+                                                    item.stock,
+                                                    item.price,
+                                                    item.image,
+                                                    false
+                                            )
+                                        )
                                 }
                             } else {
                                 Log.e("ERROR", res.errorBody().toString())
@@ -114,12 +123,15 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                         }
                     }
 
-                    API(ctx).cart.update(CartUpdateRequest(item.id, itensSpinner[position]), itensSpinner[position]).enqueue(callback)
+                    if (changed > 0) {
+                        API(ctx).cart.update(CartUpdateRequest(item.id, itensSpinner[position]), itensSpinner[position])
+                            .enqueue(callback)
+                    }
+
+                    changed += 1
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    binding.spinner.setSelection(item.quantity - 1)
-                }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
             binding.btnDelete.setOnClickListener {
