@@ -20,9 +20,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Context): RecyclerView.Adapter<ShopCartAdapter.ViewHolder>() {
+class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Context, private val updateCart: () -> Unit): RecyclerView.Adapter<ShopCartAdapter.ViewHolder>() {
 
-    class ViewHolder (private val binding: ShopcartItemBinding, private val ctx: Context) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (private val binding: ShopcartItemBinding, private val ctx: Context, private val updateCart: () -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartItem) {
 
             var changed = 0
@@ -104,6 +104,8 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                                                     false
                                             )
                                         )
+
+                                    updateCart()
                                 }
                             } else {
                                 Log.e("ERROR", res.errorBody().toString())
@@ -123,12 +125,14 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                         }
                     }
 
+
                     if (changed > 0) {
                         API(ctx).cart.update(CartUpdateRequest(item.id, itensSpinner[position]), itensSpinner[position])
                             .enqueue(callback)
                     }
 
                     changed += 1
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -148,7 +152,7 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
 
         val shopBinding = ShopcartItemBinding.inflate(layoutInflater)
 
-        return ViewHolder(shopBinding, ctx)
+        return ViewHolder(shopBinding, ctx, updateCart)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

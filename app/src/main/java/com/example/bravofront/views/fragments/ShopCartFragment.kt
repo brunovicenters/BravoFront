@@ -51,7 +51,7 @@ class ShopCartFragment : Fragment() {
 
         binding.rvCartItems.layoutManager = LinearLayoutManager(requireContext())
 
-        shopCartAdapter = ShopCartAdapter(listShopCart, requireContext())
+        shopCartAdapter = ShopCartAdapter(listShopCart, requireContext()) { updateCart() }
 
         binding.rvCartItems.adapter = shopCartAdapter
 
