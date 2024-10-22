@@ -86,9 +86,10 @@ class ProductShowActivity : AppCompatActivity() {
                 makeToast(getString(R.string.login_to_buy), this)
             } else if (qtyAvaialable <= 0) {
                 makeToast(getString(R.string.product_unavailable), this)
-            } else if (txtQty.text.toString().toInt() < 1) {
-                makeToast(getString(R.string.invalid_qty), this)
             } else {
+                if (txtQty.text.toString().toInt() < 1) {
+                    txtQty.text = 1.toString()
+                }
                 addToCart(buy = true)
             }
         }
