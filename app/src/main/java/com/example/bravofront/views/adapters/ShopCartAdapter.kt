@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bravofront.R
@@ -150,9 +151,58 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
             }
 
             binding.btnDelete.setOnClickListener {
-                removeFromFinalCart(ctx, item.id)
-                //TODO:
-                // Retrofit delete request
+
+                val callback = object : Callback<ApiResponse<CartUpdate>> {
+                    override fun onResponse(call: Call<ApiResponse<CartUpdate>>, res: Response<ApiResponse<CartUpdate>>) {
+
+                        if(res.isSuccessful) {
+
+                            val apiResponse = res.body()
+
+                            apiResponse?.let {
+                                val data = apiResponse.data
+
+                                when (data.msg) {
+                                    "not found" -> {
+                                        makeToast("Produto não encontrado", ctx)
+                                    }
+                                    "error" -> {
+                                        makeToast("Falha ao remover produto do carrinho", ctx)
+                                    }
+                                    "deleted" -> {
+                                        makeToast("Produto removido com sucesso", ctx)
+                                    }
+                                }
+
+                                removeFromFinalCart(ctx, item.id)
+
+                                updateCart()
+                            }
+                        } else {
+                            Log.e("ERROR", res.errorBody().toString())
+                            if (res.code() == 404 || res.code() == 401) {
+                                makeToast("Falha ao carregar o produto", ctx)
+
+                                Log.e("ERROR", res.errorBody().toString())
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<CartUpdate>>, t: Throwable) {
+
+                        makeToast(getString(ctx, R.string.failed_connect_server), ctx)
+
+                        Log.e("ERROR", "Falha ao executar serviço", t)
+                    }
+                }
+
+                Log.e("ERROR", item.id.toString())
+
+                API(ctx).cart.delete(item.id).enqueue(callback)
+
+
+
+
             }
 
         }
