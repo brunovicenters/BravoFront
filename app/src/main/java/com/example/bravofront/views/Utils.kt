@@ -153,8 +153,9 @@ fun addToFinalCart(ctx: Context, item: CartItem) {
         list.add(0, item)
     }
 
-    val json = Gson().toJson(list.toList())
+    val json = gson.toJson(list.toList())
     editor.putString("ITEMS_BUY-$user",json)
+    editor.commit()
 }
 
 fun removeFromFinalCart(ctx: Context, item: Int) {
@@ -168,5 +169,6 @@ fun removeFromFinalCart(ctx: Context, item: Int) {
         }
         val json = Gson().toJson(list.toList())
         editor.putString("ITEMS_BUY-$user",json)
+        editor.commit()
     }
 }

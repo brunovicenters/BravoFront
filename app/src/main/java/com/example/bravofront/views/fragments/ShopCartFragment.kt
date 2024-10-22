@@ -38,11 +38,16 @@ class ShopCartFragment : Fragment() {
         turnOnLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
 
         binding.btnBuyShopCart.setOnClickListener {
-            if (getFinalCart(requireContext()) != null) {
+            if (getFinalCart(requireContext()) == null || getFinalCart(requireContext())!!.isEmpty()) {
                 makeToast("You need to select at least one product", requireContext())
                 return@setOnClickListener
             }
-            makeToast("Not implemented yet", requireContext())
+            var sum = 0.0
+            getFinalCart(requireContext())?.let { it ->
+                sum = it.sumOf { it.price.toDouble() }
+            }
+
+            makeToast("Not implemented yet $sum", requireContext())
         }
 
         binding.swpRefresh.setOnRefreshListener {
