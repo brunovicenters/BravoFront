@@ -1,6 +1,8 @@
 package com.example.bravofront.views.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bravofront.R
 import com.example.bravofront.api.API
@@ -24,6 +27,14 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
 
     class ViewHolder (private val binding: ShopcartItemBinding, private val ctx: Context, private val updateCart: () -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CartItem) {
+
+            binding.imgProduto.setOnClickListener {
+                val i = Intent(ctx, ProductShowActivity::class.java)
+                i.putExtra("id", item.id)
+                i.putExtra("screen", R.id.shopcart)
+                startActivity(ctx, i, null)
+                (ctx as Activity).finish()
+            }
 
             var changed = 0
 
