@@ -60,7 +60,7 @@
                     android:layout_marginEnd="16dp">
 
                 <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="132dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtNomeProduto"
                         android:layout_weight="1"
