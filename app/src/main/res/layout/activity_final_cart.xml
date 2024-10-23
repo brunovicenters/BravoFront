@@ -8,4 +8,183 @@
         android:layout_height="match_parent"
         tools:context=".views.FinalCartActivity">
 
+    <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:srcCompat="@drawable/backicon"
+            android:id="@+id/imgBackBtnFinalBuy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+    <TextView
+            android:text="Finalizar compra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/imgBackBtnFinalBuy"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:textSize="24sp"
+            android:fontFamily="@font/federant"
+            android:textColor="@color/negative"/>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="4dp"
+            app:contentPadding="12dp"
+            android:id="@+id/cvItensBuy">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="Itens selecionados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView13"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/negative"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtFinalPrice"
+                    tools:text="R$ 61.000,00"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/negative"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/final_cart_item"
+                    android:id="@+id/rvItens"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cvItensBuy"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:contentPadding="12dp"
+            android:id="@+id/cardView">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="Endereço"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView17"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/negative"/>
+
+            <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/spinner"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
+                    android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:contentPadding="12dp">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="Pagamento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView18"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/federant"
+                    android:textColor="@color/negative"
+                    android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                        android:text="Pix"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rbPix"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textColor="@color/negative"
+                        android:textSize="14sp"/>
+
+                <RadioButton
+                        android:text="Boleto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rbBoleto"
+                        android:textColor="@color/negative"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textSize="14sp"/>
+
+                <RadioButton
+                        android:text="Cartão de Crédito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rbCC"
+                        android:fontFamily="@font/fugaz_one"
+                        android:textColor="@color/negative"
+                        android:textSize="14sp"/>
+            </RadioGroup>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+            android:text="Comprar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnBuyFinal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/federant"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
