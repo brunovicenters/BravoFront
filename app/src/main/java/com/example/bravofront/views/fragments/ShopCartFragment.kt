@@ -1,5 +1,7 @@
 package com.example.bravofront.views.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,15 +11,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bravofront.R
 import com.example.bravofront.api.API
+import com.example.bravofront.api.ARQUIVO_LOGIN
 import com.example.bravofront.databinding.FragmentShopCartBinding
 import com.example.bravofront.model.ApiResponse
 import com.example.bravofront.model.CartIndex
 import com.example.bravofront.model.CartItem
+import com.example.bravofront.views.*
 import com.example.bravofront.views.adapters.ShopCartAdapter
-import com.example.bravofront.views.getFinalCart
-import com.example.bravofront.views.makeToast
-import com.example.bravofront.views.turnOffLoading
-import com.example.bravofront.views.turnOnLoading
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,6 +82,11 @@ class ShopCartFragment : Fragment() {
 
                         listShopCart.clear()
                         listShopCart.addAll(it.data.carrinho)
+
+                        if (listShopCart.isEmpty()) {
+                            binding.txtNoProducts.visibility = View.VISIBLE
+                            binding.rvCartItems.visibility = View.GONE
+                        }
 
                         shopCartAdapter.notifyDataSetChanged()
                     }
