@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (intent.getBooleanExtra("shopcart", false)) {
+                makeToast("Você precisa logar para adicionar produto ao carrinho", ctx)
                 val i = Intent(ctx, MainActivity::class.java)
                 startActivity(i)
             }
