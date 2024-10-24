@@ -1,5 +1,6 @@
 package com.example.bravofront.views
 
+import android.app.AlertDialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -171,4 +172,18 @@ fun removeFromFinalCart(ctx: Context, item: Int) {
         editor.putString("ITEMS_BUY-$user",json)
         editor.commit()
     }
+}
+
+fun showDialog(ctx: Context, confirmMsg: String, title: String, message: String, callback: () -> Unit) {
+    val builder = AlertDialog.Builder(ctx)
+    builder.setTitle(title)
+    builder.setMessage(message)
+    builder.setPositiveButton(confirmMsg) { dialog, which ->
+        callback()
+        dialog.dismiss()
+    }
+    builder.setNegativeButton("Cancelar") { dialog, which ->
+        dialog.dismiss()
+    }
+    builder.show()
 }
