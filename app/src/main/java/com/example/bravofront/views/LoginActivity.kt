@@ -37,6 +37,11 @@ class LoginActivity : AppCompatActivity() {
                 val i = Intent(ctx, RegisterActivity::class.java)
                 startActivity(i)
             }
+
+            if (intent.getBooleanExtra("shopcart", false)) {
+                val i = Intent(ctx, MainActivity::class.java)
+                startActivity(i)
+            }
             finish()
         }
 

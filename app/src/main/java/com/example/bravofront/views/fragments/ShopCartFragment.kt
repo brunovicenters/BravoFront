@@ -33,7 +33,17 @@ class ShopCartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentShopCartBinding.inflate(inflater, container, false)
+
+        val sp = requireContext().getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE)
+
+        if (!(sp.getString("email", "") != "" && sp.getString("password", "") != "")) {
+            val i = Intent(requireContext(), LoginActivity::class.java)
+            i.putExtra("shopcart", true)
+            i.putExtra("frag", R.id.shopcart)
+            startActivity(i)
+        }
+
+            binding = FragmentShopCartBinding.inflate(inflater, container, false)
 
         turnOnLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
 
