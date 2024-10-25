@@ -40,6 +40,10 @@ class RegisterActivity : AppCompatActivity() {
                 if (intent.getBooleanExtra("shopcart", false)) {
                     i.putExtra("shopcart", true)
                 }
+                if (intent.getBooleanExtra("productshow", false)) {
+                    i.putExtra("productshow", true)
+                }
+                i.putExtra("frag", intent.getIntExtra("frag", R.id.home))
                 startActivity(i)
                 finish()
                 return@setOnClickListener
@@ -50,6 +54,11 @@ class RegisterActivity : AppCompatActivity() {
                 val i = Intent(ctx, MainActivity::class.java)
                 startActivity(i)
             }
+
+            if (intent.getBooleanExtra("productshow", false)) {
+                makeToast("Você precisa logar para adicionar ao carrinho", ctx)
+            }
+
             finish()
         }
 
@@ -64,6 +73,10 @@ class RegisterActivity : AppCompatActivity() {
             if (intent.getBooleanExtra("shopcart", false)) {
                 i.putExtra("shopcart", true)
             }
+            if (intent.getBooleanExtra("productshow", false)) {
+                i.putExtra("productshow", true)
+            }
+            i.putExtra("frag", intent.getIntExtra("frag", R.id.home))
             startActivity(i)
             finish()
         }
@@ -135,11 +148,14 @@ class RegisterActivity : AppCompatActivity() {
 
                             edit.apply()
 
-                            val i = Intent(ctx, MainActivity::class.java)
-                            val currentFrag = intent.getIntExtra("frag", -1)
-                            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            i.putExtra("frag", currentFrag)
-                            startActivity(i)
+                            if (!(intent.getBooleanExtra("productshow", false))) {
+                                val i = Intent(ctx, MainActivity::class.java)
+                                val currentFrag = intent.getIntExtra("frag", -1)
+                                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                i.putExtra("frag", currentFrag)
+                                startActivity(i)
+                            }
+
                             finish()
                         }
 

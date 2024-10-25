@@ -39,6 +39,7 @@ class ProductShowActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityProductShowBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -70,7 +71,14 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnAddCart.setOnClickListener {
-            if (spLogin.getInt("user", -1) == -1) {
+
+            if (!(spLogin.getString("email", "") != "" && spLogin.getString("password", "") != "")) {
+                val i = Intent(this, LoginActivity::class.java)
+                i.putExtra("productshow", true)
+                startActivity(i)
+            }
+
+            if (!(spLogin.getString("email", "") != "" && spLogin.getString("password", "") != "")) {
                 makeToast(getString(R.string.login_to_add_to_cart), this)
             } else if (qtyAvaialable <= 0) {
                 makeToast(getString(R.string.product_unavailable), this)
@@ -83,7 +91,15 @@ class ProductShowActivity : AppCompatActivity() {
         }
 
         binding.btnBuy.setOnClickListener {
-            if (spLogin.getInt("user", -1) == -1 ) {
+
+
+            if (!(spLogin.getString("email", "") != "" && spLogin.getString("password", "") != "")) {
+                val i = Intent(this, LoginActivity::class.java)
+                i.putExtra("productshow", true)
+                startActivity(i)
+            }
+
+            if (!(spLogin.getString("email", "") != "" && spLogin.getString("password", "") != "")) {
                 makeToast(getString(R.string.login_to_buy), this)
             } else if (qtyAvaialable <= 0) {
                 makeToast(getString(R.string.product_unavailable), this)
