@@ -26,6 +26,7 @@ class ProductShowActivity : AppCompatActivity() {
     lateinit var binding: ActivityProductShowBinding
     lateinit var spLogin: SharedPreferences
     private var qtyAvaialable: Int = 0
+    private var qtdTotal: Int = 0
     private var productID: Int = -1
     private var failed: Boolean = false
 
@@ -87,7 +88,14 @@ class ProductShowActivity : AppCompatActivity() {
             } else if (qtyAvaialable <= 0) {
                 makeToast(getString(R.string.product_unavailable), this)
             } else {
-                if (txtQty.text.toString().toInt() < 1) {
+                if (txtQty.text.toString().toInt() < 1 && qtdTotal > qtyAvaialable) {
+                    val i = Intent(this@ProductShowActivity, MainActivity::class.java)
+                    i.putExtra("frag", R.id.shopcart)
+                    startActivity(i)
+                    finish()
+                    return@setOnClickListener
+                }
+                if (txtQty.text.toString().toInt() < 1 && qtdTotal == qtyAvaialable) {
                     txtQty.text = 1.toString()
                 }
                 addToCart(buy = true)
@@ -156,6 +164,7 @@ class ProductShowActivity : AppCompatActivity() {
                             }
 
                             qtyAvaialable = product.qtdDisponivel
+                            qtdTotal = product.qtd
 
                             if (qtyAvaialable <= 40 && product.qtd > 0) {
                                 binding.txtLastUnits.visibility = View.VISIBLE
