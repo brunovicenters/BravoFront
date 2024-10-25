@@ -174,6 +174,19 @@ fun removeFromFinalCart(ctx: Context, item: Int) {
     }
 }
 
+fun removeAllFromFinalCartBut(ctx: Context, itens: List<CartItem>) {
+    val editor = ctx.getSharedPreferences("ITEMS_BUY", Context.MODE_PRIVATE).edit()
+    val user = ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)
+
+    val list = getFinalCart(ctx)?.toMutableList()
+    if (list != null) {
+        list.removeAll { item -> itens.none { it.id == item.id } }
+        val json = Gson().toJson(list.toList())
+        editor.putString("ITEMS_BUY-$user",json)
+        editor.commit()
+    }
+}
+
 fun showDialog(ctx: Context, confirmMsg: String, title: String, message: String, callback: () -> Unit) {
     val builder = AlertDialog.Builder(ctx)
     builder.setTitle(title)

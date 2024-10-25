@@ -98,6 +98,8 @@ class ShopCartFragment : Fragment() {
                             binding.rvCartItems.visibility = View.GONE
                         }
 
+                        removeAllFromFinalCartBut(requireContext(), listShopCart)
+
                         shopCartAdapter.notifyDataSetChanged()
                     }
                 } else {

@@ -61,6 +61,9 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                     .into(binding.imgProduto)
             }
 
+            val isInCart = finalCart?.indexOfFirst { it.id == item.id } ?: -1 > -1
+            binding.cbAddCart.isChecked = isInCart
+
             binding.cbAddCart.setOnCheckedChangeListener { _, isChecked ->
 
                 if (isChecked) {
@@ -70,12 +73,6 @@ class ShopCartAdapter (private val list: List<CartItem>, private val ctx: Contex
                     removeFromFinalCart(ctx, item.id)
                 }
 
-            }
-
-            if (finalCart != null) {
-                if (finalCart.indexOfFirst { it.id == item.id } > -1) {
-                    binding.cbAddCart.isChecked = true
-                }
             }
 
             val itensSpinner = IntArray(item.stock) { it + 1 }.toList()
