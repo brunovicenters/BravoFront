@@ -35,20 +35,29 @@ class LoginActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             if (intent.getBooleanExtra("register", false)) {
                 val i = Intent(ctx, RegisterActivity::class.java)
+                if (intent.getBooleanExtra("shopcart", false)) {
+                    i.putExtra("shopcart", true)
+                }
                 startActivity(i)
+                finish()
+                return@setOnClickListener
             }
 
             if (intent.getBooleanExtra("shopcart", false)) {
-                makeToast("Você precisa logar para adicionar produto ao carrinho", ctx)
+                makeToast("Você precisa logar para acessar o carrinho", ctx)
                 val i = Intent(ctx, MainActivity::class.java)
                 startActivity(i)
             }
+
             finish()
         }
 
         binding.txtCreateAccount.setOnClickListener {
             val i = Intent(ctx, RegisterActivity::class.java)
             i.putExtra("login", true)
+            if (intent.getBooleanExtra("shopcart", false)) {
+                i.putExtra("shopcart", true)
+            }
             startActivity(i)
             finish()
         }
