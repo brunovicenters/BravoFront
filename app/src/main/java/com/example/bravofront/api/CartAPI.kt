@@ -14,7 +14,6 @@ interface CartAPI {
     @GET("/api/carrinho")
     fun index(): Call<ApiResponse<CartIndex>>
 
-
     @POST("/api/carrinho")
     fun store(@Body produto: CartInsertRequest): Call<ApiResponse<CartInsert>>
 
@@ -23,4 +22,7 @@ interface CartAPI {
 
     @DELETE("/api/carrinho/{id}")
     fun delete(@Path("id") id: Int): Call<ApiResponse<CartUpdate>>
+
+    @POST("/api/carrinho/finalizar")
+    fun final(@Body item: CartFinalRequest): Call<ApiResponse<CartFinal>>
 }

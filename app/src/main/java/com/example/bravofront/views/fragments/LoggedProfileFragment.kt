@@ -121,8 +121,9 @@ class LoggedProfileFragment(val ctx: Context) : Fragment() {
                 res: Response<ApiResponse<ProfileShow>>
             ) {
 
-                Log.d("AuthenticateToken", "User: ${ctx.getSharedPreferences(ARQUIVO_LOGIN, Context.MODE_PRIVATE).getInt("user", -1)}")
-
+                if (!(isAdded && context != null)) {
+                    return
+                }
 
                 if (res.isSuccessful) {
 

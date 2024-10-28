@@ -159,6 +159,10 @@ class HomeFragment(private val ctx: Context) : Fragment() {
             override fun onResponse(call: Call<ApiResponse<Home>>, res: Response<ApiResponse<Home>>) {
                 turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
+                if (!(isAdded && context != null)) {
+                    return
+                }
+
                 if(res.isSuccessful) {
                    val apiResponse = res.body()
                     apiResponse?.let {

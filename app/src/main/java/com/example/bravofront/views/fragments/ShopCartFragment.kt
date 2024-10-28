@@ -52,12 +52,10 @@ class ShopCartFragment : Fragment() {
                 makeToast("You need to select at least one product", requireContext())
                 return@setOnClickListener
             }
-            var sum = 0.0
-            getFinalCart(requireContext())?.let { it ->
-                sum = it.sumOf { it.price.toDouble() }
-            }
 
-            makeToast("Not implemented yet $sum", requireContext())
+            val i = Intent(requireContext(), FinalCartActivity::class.java)
+            i.putExtra("screen", R.id.shopcart)
+            startActivity(i)
         }
 
         binding.swpRefresh.setOnRefreshListener {
@@ -83,6 +81,10 @@ class ShopCartFragment : Fragment() {
         val callback = object : Callback<ApiResponse<CartIndex>> {
             override fun onResponse(call: Call<ApiResponse<CartIndex>>, res: Response<ApiResponse<CartIndex>>) {
                 turnOffLoading(binding.swpRefresh, null, binding.nstScrollShopCart)
+
+                if (!(isAdded && context != null)) {
+                    return
+                }
 
                 if (res.isSuccessful) {
 
