@@ -28,12 +28,12 @@ class FinalCartActivity : AppCompatActivity() {
     lateinit var sp: SharedPreferences
 
     var sumCars: Double = 0.0
-//            sum = it.sumOf { it.price.toDouble() }
     var listItems = arrayListOf<CartFinalItem>()
     lateinit var adapter: FinalCartAdapter
 
-    lateinit var listEnderecos: ArrayList<FinalCartEnderecos>
     var enderecoId: Int = -1
+
+    var paymentMethodSelected: String = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +48,31 @@ class FinalCartActivity : AppCompatActivity() {
             goBack()
         }
 
+        binding.rgPaymentMethod.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rbBoleto -> paymentMethodSelected = "boleto"
+                R.id.rbCC -> paymentMethodSelected = "cartao"
+                R.id.rbPix -> paymentMethodSelected = "pix"
+            }
+        }
+
         binding.btnBuyFinal.setOnClickListener {
             //TODO: Add produtos to cart
             // verify endereco id is selected
+            if (enderecoId == -1) {
+                makeToast("Selecione um endereço", this)
+                return@setOnClickListener
+            }
+
             // verify payment method is selected
-            
-            makeToast("Working on that", this)
+            if (paymentMethodSelected == "") {
+                makeToast("Selecione um meio de pagamento", this)
+                return@setOnClickListener
+            }
+
+//            makeToast("Working on that", this)
+
+            makePedido()
         }
 
         adapter = FinalCartAdapter(listItems)
@@ -72,6 +91,8 @@ class FinalCartActivity : AppCompatActivity() {
         val callback = object : Callback<ApiResponse<CartFinal>> {
             override fun onResponse(call: Call<ApiResponse<CartFinal>>, res: Response<ApiResponse<CartFinal>>) {
 
+                turnOffLoading(null, binding.progressBar, null)
+
                 if (res.isSuccessful) {
 
                     val apiResponse = res.body()
@@ -83,8 +104,10 @@ class FinalCartActivity : AppCompatActivity() {
                         listItems.addAll(produtos)
                         adapter.notifyDataSetChanged()
 
+                        sumCars = 0.0
+
                         produtos.forEach { it ->
-                            sumCars += it.price.toDouble()
+                            sumCars += it.price.toDouble() * it.quantity
                         }
 
                         binding.txtFinalPrice.text = formatPrice( sumCars
@@ -110,6 +133,7 @@ class FinalCartActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ApiResponse<CartFinal>>, t: Throwable) {
+                turnOffLoading(null, binding.progressBar, null)
 
                 makeToast("Não foi possível se conectar ao servidor", this@FinalCartActivity)
 
@@ -138,6 +162,8 @@ class FinalCartActivity : AppCompatActivity() {
         }
 
         API(this).cart.final(CartFinalRequest(userId, produtos)).enqueue(callback)
+
+        turnOnLoading(null, binding.progressBar, null)
     }
 
     fun setupSpinner(addressList: List<FinalCartEnderecos>) {
@@ -187,6 +213,62 @@ class FinalCartActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+    }
+
+    fun makePedido() {
+
+        val callback = object : Callback<ApiResponse<StorePedidoResponse>> {
+            override fun onResponse(call: Call<ApiResponse<StorePedidoResponse>>, res: Response<ApiResponse<StorePedidoResponse>>) {
+
+                turnOffLoading(null, binding.progressBar, null)
+
+                if (res.isSuccessful) {
+                    val apiResponse = res.body()
+
+                    apiResponse?.let {
+
+                        if (it.data.pedido == -1) {
+                            makeToast("Falha ao realizar pedido: Um ou mais produtos estão fora de estoque.", this@FinalCartActivity)
+                        }
+
+                        makeToast("Pedido realizado com sucesso", this@FinalCartActivity)
+
+                        val i = Intent(this@FinalCartActivity, MainActivity::class.java)
+                        i.putExtra("frag", R.id.profile)
+                        startActivity(i)
+                        finish()
+                    }
+
+                } else {
+                    Log.e("ERROR", res.errorBody().toString())
+                    if (res.code() == 404 || res.code() == 401) {
+                        makeToast("Falha ao carregar pedido", this@FinalCartActivity)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<StorePedidoResponse>>, t: Throwable) {
+                turnOffLoading(null, binding.progressBar, null)
+
+                makeToast("Não foi possível se conectar ao servidor", this@FinalCartActivity)
+
+                Log.e("ERROR", "Falha ao executar serviço", t)
+            }
+        }
+
+        val produtos = mutableListOf<ProdutoPedidoRequest>()
+
+        getFinalCart(this@FinalCartActivity).let {
+            it?.forEach { produto ->
+                produtos.add(ProdutoPedidoRequest(produto.id, produto.quantity, produto.price))
+            }
+        }
+
+        Log.d("PRODUTOS", produtos.toString())
+
+        API(this).pedido.create(StorePedidoRequest(enderecoId, produtos)).enqueue(callback)
+
+        turnOnLoading(null, binding.progressBar, null)
     }
 
     private fun goBack() {

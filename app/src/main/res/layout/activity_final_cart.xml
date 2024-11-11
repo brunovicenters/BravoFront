@@ -9,6 +9,20 @@
         tools:context=".views.FinalCartActivity"
         android:background="@color/white">
 
+    <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"
+            android:indeterminate="true"
+            android:visibility="visible"
+            android:indeterminateTint="@color/main"
+            android:progressTint="@color/highlight"/>
+
     <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -145,7 +159,8 @@
 
             <RadioGroup
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rgPaymentMethod">
 
                 <RadioButton
                         android:text="Pix"

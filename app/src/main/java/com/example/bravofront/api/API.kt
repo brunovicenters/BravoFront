@@ -62,4 +62,7 @@ class API(private val ctx: Context?) {
 
     val cart: CartAPI
         get() = authRetrofit.create(CartAPI::class.java)
+
+    val pedido: PedidoAPI
+        get() = authRetrofit.create(PedidoAPI::class.java)
 }

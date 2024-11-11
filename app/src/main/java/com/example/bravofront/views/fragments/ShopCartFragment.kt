@@ -56,6 +56,7 @@ class ShopCartFragment : Fragment() {
             val i = Intent(requireContext(), FinalCartActivity::class.java)
             i.putExtra("screen", R.id.shopcart)
             startActivity(i)
+            requireActivity().finish()
         }
 
         binding.swpRefresh.setOnRefreshListener {
