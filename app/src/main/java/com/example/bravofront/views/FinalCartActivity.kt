@@ -70,8 +70,6 @@ class FinalCartActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-//            makeToast("Working on that", this)
-
             makePedido()
         }
 
@@ -227,18 +225,27 @@ class FinalCartActivity : AppCompatActivity() {
 
                     apiResponse?.let {
 
-                        if (it.data.pedido == -1) {
-                            makeToast("Falha ao realizar pedido: Um ou mais produtos estão fora de estoque.", this@FinalCartActivity)
+                        if (it.data.message == "out of stock") {
+                            makeToast("Falha ao realizar pedido: Um ou mais produtos está fora de estoque.", this@FinalCartActivity)
+                            return
                         }
 
-                        makeToast("Pedido realizado com sucesso", this@FinalCartActivity)
+                        if (it.data.pedido == -1) {
+                            makeToast("Falha ao realizar pedido", this@FinalCartActivity)
+                            return
+                        }
 
-                        val i = Intent(this@FinalCartActivity, MainActivity::class.java)
-                        i.putExtra("frag", R.id.profile)
-                        startActivity(i)
-                        finish()
+                        if (it.data.message == "success") {
+                            makeToast("Pedido realizado com sucesso", this@FinalCartActivity)
+
+                            val i = Intent(this@FinalCartActivity, MainActivity::class.java)
+                            i.putExtra("frag", R.id.profile)
+                            startActivity(i)
+                            finish()
+                        } else {
+                            makeToast("Incapaz de realizar o pedido", this@FinalCartActivity)
+                        }
                     }
-
                 } else {
                     Log.e("ERROR", res.errorBody().toString())
                     if (res.code() == 404 || res.code() == 401) {
