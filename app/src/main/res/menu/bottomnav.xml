@@ -15,10 +15,6 @@
             android:icon="@drawable/searchicon"
             android:id="@+id/search"/>
     <item
-            android:title="@string/category"
-            android:id="@+id/category"
-            android:icon="@drawable/categoryicon"/>
-    <item
             android:title="@string/profile"
             android:id="@+id/profile"
             android:icon="@drawable/profileicon"/>
