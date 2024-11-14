@@ -16,9 +16,17 @@
             tools:context=".views.fragments.SearchFragment"
             android:background="@color/white_100">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/card_item"/>
+                tools:ignore="SpeakableTextPresentCheck"
+                android:id="@+id/nstScrollSearch">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/card_item"
+                    android:id="@+id/rvSearch"/>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

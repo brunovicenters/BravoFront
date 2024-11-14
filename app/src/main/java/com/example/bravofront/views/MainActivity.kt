@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeScreen(screen: Int) {
         frag = when (screen) {
-            R.id.search -> SearchFragment.newInstance("", "")
+            R.id.search -> SearchFragment.newInstance()
             R.id.profile -> {
                 if (sp.getString("email", "") != "" && sp.getString("password", "") != "") {
                     LoggedProfileFragment.newInstance(this)

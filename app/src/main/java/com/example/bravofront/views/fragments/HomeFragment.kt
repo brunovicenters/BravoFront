@@ -264,6 +264,10 @@ class HomeFragment(private val ctx: Context) : Fragment() {
             }
 
             override fun onFailure(call: Call<ApiResponse<Home>>, t: Throwable) {
+                if (!(isAdded && context != null)) {
+                    return
+                }
+
                 turnOffLoading(binding.swpRefresh, binding.progressBar, binding.nstScrollHome)
 
                 makeToast("Não foi possível se conectar ao servidor", ctx)

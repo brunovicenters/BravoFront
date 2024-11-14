@@ -10,7 +10,6 @@ import retrofit2.http.Query
 
 interface ProdutoAPI {
     @GET("/api/produto")
-    // TODO: Fix response
     fun index(): Call<ApiResponse<Search>>
 
     @GET("/api/produto/{id}")

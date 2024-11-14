@@ -106,6 +106,9 @@ class ShopCartFragment : Fragment() {
                         shopCartAdapter.notifyDataSetChanged()
                     }
                 } else {
+                    if (!(isAdded && context != null)) {
+                        return
+                    }
                     Log.e("ERROR", res.errorBody().toString())
                     if (res.code() == 404 || res.code() == 401) {
                         makeToast("Falha ao carregar o carrinho", requireContext())
